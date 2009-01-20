@@ -1,0 +1,16 @@
+#summary TODO items list for RemotePad and RemotePad Server
+
+= Common =
+
+  * client or server authentication
+    * PIN
+
+= RemotePad =
+
+  * software keyboard
+    * encryption?
+  * landscape mode
+
+= RemotePad Server =
+
+  * menubar application
