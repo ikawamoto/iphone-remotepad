@@ -14,4 +14,4 @@
 
 = RemotePad Server =
 
-  * menubar application
+  * menubar(system tray) application
