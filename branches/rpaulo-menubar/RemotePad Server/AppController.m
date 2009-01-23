@@ -160,7 +160,10 @@
 					statusItemWithLength:NSVariableStatusItemLength];
 	
 	[statusItem retain];
-	[statusItem setTitle:@"RP"]; // XXX: use an image instead
+	NSString *imageName = [[NSBundle mainBundle]
+						   pathForResource:@"pointer" ofType:@"png"];
+	NSImage *tempImage = [[NSImage alloc] initWithContentsOfFile:imageName];
+	[statusItem setImage:tempImage];
 	[statusItem setHighlightMode:YES];
 	
 	NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Menu"];	
