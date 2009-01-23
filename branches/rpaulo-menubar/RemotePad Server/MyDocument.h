@@ -84,7 +84,8 @@
 - (void)mouseMoveX:(struct mouseEvent)x Y:(struct mouseEvent)y;
 - (void)scrollWheelW:(struct mouseEvent)w Z:(struct mouseEvent)z;
 - (void)scrollWheelZ:(struct mouseEvent)z;
-- (void)setup;
+- (void)quit:(id)sender;
+- (void)setup:(id)sender;
 - (IBAction)disconnect:(id)sender;
 - (void)exitStreamThread;
 - (void)sendKeepAlive:(NSTimer*)theTimer;

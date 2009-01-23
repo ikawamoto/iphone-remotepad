@@ -124,10 +124,17 @@
     // Add any code here that needs to be executed once the windowController has loaded the document's window.
 	[self _showAlert:[NSString stringWithFormat:@"RemotePad Server version %@", kVersion]];
 	[self _showAlert:@"Application launched."];
-	[self setup];
+	[self setup:self];
 }
 
-- (void) setup {
+- (void) quit:(id)sender {
+	[self disconnect:sender];
+	[NSApp terminate:sender];
+}
+
+- (void) setup:(id)sender {
+	static int menubar_created = NO; // XXX
+	
 	streamThread = nil;
 	
 	[_server release];
@@ -160,7 +167,46 @@
 	
 	//[self presentPicker:nil];
 	[self _showAlert:[NSString stringWithFormat:@"Waiting with Bonjour (port %d)", [_server port]]];
+	
+	
+	// Setup the menubar
+	if (!menubar_created) {
+		NSStatusItem *statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
+		
+		[statusItem retain];
+		[statusItem setTitle:@"RP"]; // XXX: use an image instead
+		[statusItem setHighlightMode:YES];
+		
+		NSMenu *menu = [[NSMenu alloc] initWithTitle:@"Menu"];	
+		NSMenuItem *menuItem;
+		
+		[menu setAutoenablesItems:NO];
+		
+		menuItem = [[NSMenuItem alloc]
+					 initWithTitle:@"RemotePad: No peer connected"
+					 action:nil keyEquivalent:@""];
+		[menuItem setEnabled:NO];
+		[menu addItem:menuItem];
+		
+		[menu addItem:[NSMenuItem separatorItem]];
+		
+		menuItem = [[NSMenuItem alloc] initWithTitle:@"Quit RemotePad"
+											  action:@selector(quit:)
+									   keyEquivalent:@""];
+		[menuItem setEnabled:YES];
+		[menu addItem:menuItem];
+		
+		[statusItem setMenu:menu];
+		menubar_created = YES;
+	}
+	
 }
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem
+{
+	return YES;
+}
+
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
 {
@@ -379,7 +425,7 @@
 	[_outStream close];
 	[self _showAlert:@"Disconnected!"];
 	[disconnectButton setEnabled:NO];
-	[self setup];
+	[self setup:sender];
 }
 
 - (void)addSourceToCurrentRunLoop {
