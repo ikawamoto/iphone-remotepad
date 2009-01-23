@@ -12,6 +12,7 @@
 		3A99D79A0F20D63700C16512 /* COPYRIGHT in Resources */ = {isa = PBXBuildFile; fileRef = 3A99D7990F20D63700C16512 /* COPYRIGHT */; };
 		3AB151190E7F5D0500FB4375 /* TCPServer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AB151180E7F5D0500FB4375 /* TCPServer.m */; };
 		3AB1512C0E7F5D8B00FB4375 /* Carbon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AB1512B0E7F5D8B00FB4375 /* Carbon.framework */; };
+		5631BFD80F2A2FD80042B665 /* pointer.png in Resources */ = {isa = PBXBuildFile; fileRef = 5631BFD70F2A2FD80042B665 /* pointer.png */; };
 		5650583F0F2A0A220067B358 /* AppController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5650583E0F2A0A220067B358 /* AppController.m */; };
 		8D15AC2C0486D014006FF6A4 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 2A37F4B9FDCFA73011CA2CEA /* Credits.rtf */; };
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
@@ -45,6 +46,7 @@
 		3ACB0F6F0F2059A400502F28 /* Imakefile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Imakefile; sourceTree = "<group>"; };
 		3ACB0FD30F206FB700502F28 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		3AF6AE0C0F11A049005EDBB2 /* Makefile4dist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Makefile4dist; sourceTree = "<group>"; };
+		5631BFD70F2A2FD80042B665 /* pointer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pointer.png; sourceTree = "<group>"; };
 		5650583D0F2A0A220067B358 /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		5650583E0F2A0A220067B358 /* AppController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppController.m; sourceTree = "<group>"; };
 		8D15AC360486D014006FF6A4 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 		2A37F4B8FDCFA73011CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				5631BFD70F2A2FD80042B665 /* pointer.png */,
 				3A99D7990F20D63700C16512 /* COPYRIGHT */,
 				3ACB0FD30F206FB700502F28 /* README */,
 				3A166AF50E7F6C6300001374 /* icon.xcf */,
@@ -220,6 +223,7 @@
 				1DDD582D0DA1D0D100B32029 /* MainMenu.xib in Resources */,
 				3A166AF30E7F6B8F00001374 /* RemotePad Server.icns in Resources */,
 				3A99D79A0F20D63700C16512 /* COPYRIGHT in Resources */,
+				5631BFD80F2A2FD80042B665 /* pointer.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
