@@ -15,5 +15,5 @@
 
 = RemotePad Server =
 
-  * menubar application for Mac OS X
+  * menubar application for Mac OS X (contact: rpaulo at gmail.com)
   * tasktray or windows service application for Windows
