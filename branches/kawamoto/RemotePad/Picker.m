@@ -233,8 +233,10 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (void)textFieldDidEndEditing:(UITextField *)textField {
 	NSMutableString *serverString = [NSMutableString stringWithString:[textField text]];
-	[serverString replaceOccurrencesOfString:@" " withString:@"" options:0 range:NSMakeRange(0, [serverString length])];
-	[textField setText:serverString];
+	if ([serverString replaceOccurrencesOfString:@" " withString:@"" options:0 range:NSMakeRange(0, [serverString length])]) {
+		[[NSUserDefaults standardUserDefaults] setObject:serverString forKey:kDefaultKeyServerName];
+		[textField setText:serverString];
+	}
 	if ([serverString length] == 0) {
 		[self setMessage:@""];
 		return;
