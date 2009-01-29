@@ -65,6 +65,7 @@ typedef struct {
 	CGPoint tapLocation;
 	CGRect nonDragArea;
 	BOOL dragMode;
+	BOOL twoFingersClick;
 } MouseTap;
 
 typedef struct {
