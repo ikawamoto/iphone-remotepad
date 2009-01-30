@@ -6,14 +6,15 @@
     * Password
     * PIN
 
-= RemotePad =
+= !RemotePad =
 
+  * server name bookmarks
   * software keyboard
     * encryption?
   * landscape mode
   * secondary click, place two fingers on a pad then tap a pad
 
-= RemotePad Server =
+= !RemotePad Server =
 
   * menubar application for Mac OS X (contact: rpaulo at gmail.com)
   * tasktray or windows service application for Windows
