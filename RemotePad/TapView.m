@@ -89,7 +89,8 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	
 	topviewLocation = rect.origin;
 	topviewLocation.y += 20;
-	topview = [[UIView alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, kButtonHeight)];
+	int buttonHeight = rect.size.height / 5;
+	topview = [[UIView alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, buttonHeight)];
 	// Disable user interaction for this view. You must do this if you want to handle touches for more than one object at at time.
 	// You'll get events for the superview, and then dispatch them to the appropriate subview in the touch handling methods.
 	[topview setUserInteractionEnabled:NO];
@@ -190,34 +191,57 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 }
 
 - (void) showToolbars:(BOOL)showToolbars showStatusbar:(BOOL)showStatusbar temporal:(BOOL)temporally {
-	CGRect rect = [[UIScreen mainScreen] bounds];
-	CGRect tbRect;
+	CGRect rect = [self.view frame];
+	CGRect tbRect = [topview frame];
+	CGRect bbRect = [bottombar frame];
 	if (showToolbars) {
 		[[[bottombar items] objectAtIndex:0] setTitle:@"Hide button"];
 	} else {
 		[[[bottombar items] objectAtIndex:0] setTitle:@"Show button"];
 	}
+	[topview setFrame:CGRectMake(topviewLocation.x, topviewLocation.y, rect.size.width, tbRect.size.height)];
+	[topview setHidden:NO];
+	[bottombar setFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height - bbRect.size.height, rect.size.width, bbRect.size.height)];
+	[bottombar setHidden:NO];
 	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationDelegate:self];
+	[UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
 	[UIView setAnimationDuration:0.3];
-	tbRect = [topview frame];
 	if (showToolbars) {
-		[topview setFrame:CGRectMake(topviewLocation.x, topviewLocation.y, tbRect.size.width, tbRect.size.height)];
+		[topview setAlpha:1.0];
 	} else {
-		[topview setFrame:CGRectMake(rect.origin.x, rect.origin.y - tbRect.size.height, tbRect.size.width, tbRect.size.height)];
+		[topview setAlpha:0.0];
 	}
 	if (!temporally)
 		hiddenToolbars = !showToolbars;
-	tbRect = [bottombar frame];
 	if (showStatusbar) {
-		[bottombar setFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height - tbRect.size.height, tbRect.size.width, tbRect.size.height)];
+		[bottombar setAlpha:1.0];
 		[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
 	} else {
-		[bottombar setFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height, tbRect.size.width, tbRect.size.height)];
+		[bottombar setAlpha:0.0];
 		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
 	}
 	if (!temporally)
 		hiddenStatusbar = !showStatusbar;
 	[UIView commitAnimations];
+}
+
+- (void) animationFinished:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
+	CGRect rect = [self.view frame];
+	CGRect tbRect = [topview frame];
+	CGRect bbRect = [bottombar frame];
+	if (topview.alpha == 0.0) {
+		[topview setFrame:CGRectMake(rect.origin.x, rect.origin.y - tbRect.size.height, tbRect.size.width, tbRect.size.height)];
+		[topview setHidden:YES];
+	} else {
+		[topview setHidden:NO];
+	}
+	if (bottombar.alpha == 0.0) {
+		[bottombar setFrame:CGRectMake(rect.origin.x, rect.origin.y + rect.size.height, bbRect.size.width, bbRect.size.height)];
+		[bottombar setHidden:YES];
+	} else {
+		[bottombar setHidden:NO];
+	}
 }
 
 - (void) showToolbars:(BOOL)show temporal:(BOOL)temporally {
@@ -267,24 +291,25 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 - (void)setNumberOfButtons:(int)val mouseMapLeftToRight:(BOOL)isLeftToRight {
 	numberOfButtons = val;
 	mouseMapLeftToRight = isLeftToRight;
-	int buttonWidth = [[UIScreen mainScreen] bounds].size.width / numberOfButtons;
+	int buttonWidth = [self.view frame].size.width / numberOfButtons;
+	int buttonHeight = [self.view frame].size.height / 5;
 	UIImage *mouse1Norm, *mouse1High, *mouse2Norm, *mouse2High;
 	if (isLeftToRight) {
 		mouse1Norm = buttonLeftImage;
 		mouse1High = buttonLeftHighlightedImage;
 		mouse2Norm = buttonRightImage;
 		mouse2High = buttonRightHighlightedImage;
-		[mouse1Tap.button setFrame:CGRectMake(0, 0, buttonWidth, kButtonHeight)];
-		[mouse2Tap.button setFrame:CGRectMake(buttonWidth * (numberOfButtons - 1), 0, buttonWidth, kButtonHeight)];
-		[mouse3Tap.button setFrame:CGRectMake(buttonWidth, 0, buttonWidth, kButtonHeight)];
+		[mouse1Tap.button setFrame:CGRectMake(0, 0, buttonWidth, buttonHeight)];
+		[mouse2Tap.button setFrame:CGRectMake(buttonWidth * (numberOfButtons - 1), 0, buttonWidth, buttonHeight)];
+		[mouse3Tap.button setFrame:CGRectMake(buttonWidth, 0, buttonWidth, buttonHeight)];
 	} else {
 		mouse1Norm = buttonRightImage;
 		mouse1High = buttonRightHighlightedImage;
 		mouse2Norm = buttonLeftImage;
 		mouse2High = buttonLeftHighlightedImage;
-		[mouse1Tap.button setFrame:CGRectMake(buttonWidth * (numberOfButtons - 1), 0, buttonWidth, kButtonHeight)];
-		[mouse2Tap.button setFrame:CGRectMake(0, 0, buttonWidth, kButtonHeight)];
-		[mouse3Tap.button setFrame:CGRectMake(buttonWidth, 0, buttonWidth, kButtonHeight)];
+		[mouse1Tap.button setFrame:CGRectMake(buttonWidth * (numberOfButtons - 1), 0, buttonWidth, buttonHeight)];
+		[mouse2Tap.button setFrame:CGRectMake(0, 0, buttonWidth, buttonHeight)];
+		[mouse3Tap.button setFrame:CGRectMake(buttonWidth, 0, buttonWidth, buttonHeight)];
 	}
 	switch (numberOfButtons) {
 		case 1:
@@ -537,7 +562,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 		} else if (touch == topviewTap.touch) {
 			if (topviewTap.dragMode || !CGRectContainsPoint(topviewTap.nonDragArea, touchPoint)) {
 				topviewTap.dragMode = YES;
-				topviewLocation = CGPointMake(topviewLocation.x, touchPoint.y - [topview bounds].size.height/2);
+				topviewLocation = CGPointMake(topviewLocation.x, touchPoint.y - [topview frame].size.height/2);
 				[self showToolbars:YES temporal:YES];
 			}
 		} else if (touch == arrowKeyTap.touch) {
@@ -625,7 +650,22 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	// Return YES for supported orientations
-	return (interfaceOrientation == UIInterfaceOrientationPortrait);
+	if (self.interfaceOrientation != interfaceOrientation)
+		[self showToolbars:NO showStatusbar:NO temporal:YES];
+	return YES;
+}
+
+
+- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+	CGRect rect = [[UIScreen mainScreen] bounds];
+	if (self.interfaceOrientation == UIInterfaceOrientationPortrait ||
+		self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
+		[self.view setFrame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)];
+	} else {
+		[self.view setFrame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.height, rect.size.width)];
+	}
+	[self setNumberOfButtons:numberOfButtons];
+	[self prepareToolbarsAndStatusbar];
 }
 
 
