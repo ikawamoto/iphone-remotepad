@@ -48,6 +48,7 @@
 #define kDefaultKeyEnableAccelMouse			@"enableAccelMouse"
 #define kDefaultKeyServerName				@"serverName"
 #define kDefaultKeyTapViewOrientation		@"tapviewOrientation"
+#define kDefaultKeyAutorotateOrientation	@"autorotateOrientation"
 // application defaults values
 #define kDefaultVersion					kVersion
 #define kDefaultNumberOfButtons			@"3"
@@ -64,6 +65,7 @@
 #define kDefaultEnableAccelMouse		@"NO"
 #define kDefaultServerName				@""
 #define kDefaultTapViewOrientation		@"1"
+#define kDefaultAutorotateOrientation	@"YES"
 
 // Bonjour constants
 
