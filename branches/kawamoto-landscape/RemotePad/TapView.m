@@ -76,6 +76,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 @synthesize numberToggleStatusbar;
 @synthesize scrollWithMouse3;
 @synthesize enableAccelMouse;
+@synthesize tapViewOrientation;
 
 
 - (void)loadView {
@@ -164,6 +165,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	[defaults registerDefaults:[NSDictionary dictionaryWithObject:kDefaultNumberToggleToolbars forKey:kDefaultKeyNumberToggleToolbars]];
 	[defaults registerDefaults:[NSDictionary dictionaryWithObject:kDefaultScrollWithMouse3 forKey:kDefaultKeyScrollWithMouse3]];
 	[defaults registerDefaults:[NSDictionary dictionaryWithObject:kDefaultEnableAccelMouse forKey:kDefaultKeyEnableAccelMouse]];
+	[defaults registerDefaults:[NSDictionary dictionaryWithObject:kDefaultTapViewOrientation forKey:kDefaultKeyTapViewOrientation]];
 }
 
 - (void) readDefaults {
@@ -188,10 +190,11 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 		numberToggleToolbars = 0;
 	scrollWithMouse3 = [defaults boolForKey:kDefaultKeyScrollWithMouse3];
 	enableAccelMouse = [defaults boolForKey:kDefaultKeyEnableAccelMouse];
+	tapViewOrientation = (UIInterfaceOrientation)[defaults integerForKey:kDefaultKeyTapViewOrientation];
 }
 
 - (void) showToolbars:(BOOL)showToolbars showStatusbar:(BOOL)showStatusbar temporal:(BOOL)temporally {
-	CGRect rect = [self.view frame];
+	CGRect rect = [self.view bounds];
 	CGRect tbRect = [topview frame];
 	CGRect bbRect = [bottombar frame];
 	if (showToolbars) {
@@ -205,7 +208,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	[bottombar setHidden:NO];
 	[UIView beginAnimations:nil context:NULL];
 	[UIView setAnimationDelegate:self];
-	[UIView setAnimationDidStopSelector:@selector(animationFinished:finished:context:)];
+	[UIView setAnimationDidStopSelector:@selector(showToolbarsFinished:finished:context:)];
 	[UIView setAnimationDuration:0.3];
 	if (showToolbars) {
 		[topview setAlpha:1.0];
@@ -226,7 +229,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	[UIView commitAnimations];
 }
 
-- (void) animationFinished:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
+- (void) showToolbarsFinished:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
 	CGRect rect = [self.view frame];
 	CGRect tbRect = [topview frame];
 	CGRect bbRect = [bottombar frame];
@@ -291,8 +294,8 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 - (void)setNumberOfButtons:(int)val mouseMapLeftToRight:(BOOL)isLeftToRight {
 	numberOfButtons = val;
 	mouseMapLeftToRight = isLeftToRight;
-	int buttonWidth = [self.view frame].size.width / numberOfButtons;
-	int buttonHeight = [self.view frame].size.height / 5;
+	int buttonWidth = [self.view bounds].size.width / numberOfButtons;
+	int buttonHeight = [self.view bounds].size.height / 5;
 	UIImage *mouse1Norm, *mouse1High, *mouse2Norm, *mouse2High;
 	if (isLeftToRight) {
 		mouse1Norm = buttonLeftImage;
@@ -650,24 +653,39 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	// Return YES for supported orientations
-	if (self.interfaceOrientation != interfaceOrientation)
-		[self showToolbars:NO showStatusbar:NO temporal:YES];
-	return YES;
+	if (tapViewOrientation != interfaceOrientation) {
+		tapViewOrientation = interfaceOrientation;
+		[[NSUserDefaults standardUserDefaults] setInteger:tapViewOrientation forKey:kDefaultKeyTapViewOrientation];
+		[self prepareTapView];
+	}
+	return NO;
 }
 
-
-- (void) didRotateFromInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
+- (void)prepareTapView {
 	CGRect rect = [[UIScreen mainScreen] bounds];
-	if (self.interfaceOrientation == UIInterfaceOrientationPortrait ||
-		self.interfaceOrientation == UIInterfaceOrientationPortraitUpsideDown) {
-		[self.view setFrame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)];
-	} else {
-		[self.view setFrame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.height, rect.size.width)];
+	[self showToolbars:NO showStatusbar:NO temporal:YES];
+	switch (tapViewOrientation) {
+		case UIInterfaceOrientationPortrait:
+			[self.view setTransform:CGAffineTransformIdentity];
+			[self.view setBounds:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)];
+			break;
+		case UIInterfaceOrientationPortraitUpsideDown:
+			[self.view setTransform:CGAffineTransformMakeRotation(M_PI)];
+			[self.view setBounds:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height)];
+			break;
+		case UIInterfaceOrientationLandscapeLeft:
+			[self.view setTransform:CGAffineTransformMakeRotation(-M_PI/2)];
+			[self.view setBounds:CGRectMake(rect.origin.x, rect.origin.y, rect.size.height, rect.size.width)];
+			break;
+		case UIInterfaceOrientationLandscapeRight:
+			[self.view setTransform:CGAffineTransformMakeRotation(M_PI/2)];
+			[self.view setBounds:CGRectMake(rect.origin.x, rect.origin.y, rect.size.height, rect.size.width)];
+			break;
 	}
+	[[UIApplication sharedApplication] setStatusBarOrientation:tapViewOrientation];
 	[self setNumberOfButtons:numberOfButtons];
 	[self prepareToolbarsAndStatusbar];
 }
-
 
 - (void)didReceiveMemoryWarning {
 	[super didReceiveMemoryWarning]; // Releases the view if it doesn't have a superview
