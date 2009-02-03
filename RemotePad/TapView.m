@@ -77,6 +77,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 @synthesize scrollWithMouse3;
 @synthesize enableAccelMouse;
 @synthesize tapViewOrientation;
+@synthesize autorotateOrientation;
 
 
 - (void)loadView {
@@ -166,6 +167,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	[defaults registerDefaults:[NSDictionary dictionaryWithObject:kDefaultScrollWithMouse3 forKey:kDefaultKeyScrollWithMouse3]];
 	[defaults registerDefaults:[NSDictionary dictionaryWithObject:kDefaultEnableAccelMouse forKey:kDefaultKeyEnableAccelMouse]];
 	[defaults registerDefaults:[NSDictionary dictionaryWithObject:kDefaultTapViewOrientation forKey:kDefaultKeyTapViewOrientation]];
+	[defaults registerDefaults:[NSDictionary dictionaryWithObject:kDefaultAutorotateOrientation forKey:kDefaultKeyAutorotateOrientation]];
 }
 
 - (void) readDefaults {
@@ -191,6 +193,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	scrollWithMouse3 = [defaults boolForKey:kDefaultKeyScrollWithMouse3];
 	enableAccelMouse = [defaults boolForKey:kDefaultKeyEnableAccelMouse];
 	tapViewOrientation = (UIInterfaceOrientation)[defaults integerForKey:kDefaultKeyTapViewOrientation];
+	autorotateOrientation = [defaults boolForKey:kDefaultKeyAutorotateOrientation];
 }
 
 - (void) showToolbars:(BOOL)showToolbars showStatusbar:(BOOL)showStatusbar temporal:(BOOL)temporally {
@@ -653,7 +656,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
 	// Return YES for supported orientations
-	if (tapViewOrientation != interfaceOrientation) {
+	if (autorotateOrientation && tapViewOrientation != interfaceOrientation) {
 		tapViewOrientation = interfaceOrientation;
 		[[NSUserDefaults standardUserDefaults] setInteger:tapViewOrientation forKey:kDefaultKeyTapViewOrientation];
 		[self prepareTapView];

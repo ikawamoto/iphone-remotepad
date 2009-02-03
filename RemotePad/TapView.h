@@ -117,6 +117,7 @@ typedef struct {
 	AccelValues currAccel;
 	BOOL enableAccelMouse;
 	UIInterfaceOrientation tapViewOrientation;
+	BOOL autorotateOrientation;
 }
 
 - (void)resetAllStates:(id)applicationControllerDelegate;
@@ -146,5 +147,6 @@ typedef struct {
 @property BOOL scrollWithMouse3;
 @property BOOL enableAccelMouse;
 @property UIInterfaceOrientation tapViewOrientation;
+@property BOOL autorotateOrientation;
 
 @end
