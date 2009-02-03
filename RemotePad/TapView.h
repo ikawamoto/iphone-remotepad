@@ -116,6 +116,7 @@ typedef struct {
 	BOOL scrollWithMouse3;
 	AccelValues currAccel;
 	BOOL enableAccelMouse;
+	UIInterfaceOrientation tapViewOrientation;
 }
 
 - (void)resetAllStates:(id)applicationControllerDelegate;
@@ -128,6 +129,7 @@ typedef struct {
 - (void)setNumberOfButtons:(int)val mouseMapLeftToRight:(BOOL)isLeftToRight;
 - (void)registerDefaults;
 - (void)readDefaults;
+- (void)prepareTapView;
 
 @property (nonatomic,retain) AppController *appc;
 @property (readonly) UIView *topview;
@@ -143,5 +145,6 @@ typedef struct {
 @property int numberToggleStatusbar;
 @property BOOL scrollWithMouse3;
 @property BOOL enableAccelMouse;
+@property UIInterfaceOrientation tapViewOrientation;
 
 @end
