@@ -121,6 +121,7 @@ typedef struct {
 	BOOL scrollWithMouse3;
 	AccelValues currAccel;
 	BOOL enableAccelMouse;
+	BOOL twoFingersSecondary;
 }
 
 - (void)resetAllStates:(id)applicationControllerDelegate;
@@ -148,5 +149,6 @@ typedef struct {
 @property int numberToggleStatusbar;
 @property BOOL scrollWithMouse3;
 @property BOOL enableAccelMouse;
+@property BOOL twoFingersSecondary;
 
 @end

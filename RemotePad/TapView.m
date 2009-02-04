@@ -76,6 +76,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 @synthesize numberToggleStatusbar;
 @synthesize scrollWithMouse3;
 @synthesize enableAccelMouse;
+@synthesize twoFingersSecondary;
 
 
 - (void)loadView {
@@ -162,6 +163,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	[defaults registerDefaults:[NSDictionary dictionaryWithObject:kDefaultNumberToggleToolbars forKey:kDefaultKeyNumberToggleToolbars]];
 	[defaults registerDefaults:[NSDictionary dictionaryWithObject:kDefaultScrollWithMouse3 forKey:kDefaultKeyScrollWithMouse3]];
 	[defaults registerDefaults:[NSDictionary dictionaryWithObject:kDefaultEnableAccelMouse forKey:kDefaultKeyEnableAccelMouse]];
+	[defaults registerDefaults:[NSDictionary dictionaryWithObject:kDefaultTwoFingersSecondary forKey:kDefaultKeyTwoFingersSecondary]];
 }
 
 - (void) readDefaults {
@@ -186,6 +188,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 		numberToggleToolbars = 0;
 	scrollWithMouse3 = [defaults boolForKey:kDefaultKeyScrollWithMouse3];
 	enableAccelMouse = [defaults boolForKey:kDefaultKeyEnableAccelMouse];
+	twoFingersSecondary = [defaults boolForKey:kDefaultKeyTwoFingersSecondary];
 }
 
 - (void) showToolbars:(BOOL)showToolbars showStatusbar:(BOOL)showStatusbar temporal:(BOOL)temporally {
@@ -336,7 +339,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 			[mouse1Tap.button setHighlighted:YES];
 			mouse1Tap.touch = touch;
 			if (!mouse1Tap.dragMode) {
-				mouse1Tap.twoFingersClick = (numTouches == 2);
+				mouse1Tap.twoFingersClick = (twoFingersSecondary && numTouches == 2);
 				[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(mouse1Tap.twoFingersClick ? 1 : 0, tapCount) time:event.timestamp];
 			} else {
 				[mouse1Tap.button setSelected:NO];
@@ -346,7 +349,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 			[mouse2Tap.button setHighlighted:YES];
 			mouse2Tap.touch = touch;
 			if (!mouse2Tap.dragMode) {
-				mouse2Tap.twoFingersClick = (numTouches == 2);
+				mouse2Tap.twoFingersClick = (twoFingersSecondary && numTouches == 2);
 				[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(mouse2Tap.twoFingersClick ? 1 : 1, tapCount) time:event.timestamp];
 			} else {
 				[mouse2Tap.button setSelected:NO];
@@ -357,7 +360,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 			mouse3Tap.touch = touch;
 			if (!mouse3Tap.dragMode) {
 				if (!scrollWithMouse3) {
-					mouse3Tap.twoFingersClick = (numTouches == 2);
+					mouse3Tap.twoFingersClick = (twoFingersSecondary && numTouches == 2);
 					[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(mouse3Tap.twoFingersClick ? 1 : 2, tapCount) time:event.timestamp];
 				}
 			} else {
@@ -476,9 +479,12 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 				} else if (dragByTapDragMode && dragByTapLock) {
 					[appc send:EVENT_MOUSE_UP with:MouseEventValue(0, tapCount) time:event.timestamp];
 					dragByTapDragMode = NO;
-				} else {
-					[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(multiFingersTap.numFingers == 2 ? 1 : 0, tapCount) time:event.timestamp];
-					[appc send:EVENT_MOUSE_UP with:MouseEventValue(multiFingersTap.numFingers == 2 ? 1 : 0, tapCount) time:event.timestamp];
+				} else if (twoFingersSecondary && multiFingersTap.numFingers == 2) {
+					[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(1, tapCount) time:event.timestamp];
+					[appc send:EVENT_MOUSE_UP with:MouseEventValue(1, tapCount) time:event.timestamp];
+				} else if (multiFingersTap.numFingers == 1) {
+					[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(0, tapCount) time:event.timestamp];
+					[appc send:EVENT_MOUSE_UP with:MouseEventValue(0, tapCount) time:event.timestamp];
 				}
 			} else if (dragByTapDragMode && !dragByTapLock) {
 				[appc send:EVENT_MOUSE_UP with:MouseEventValue(0, tapCount) time:event.timestamp];
