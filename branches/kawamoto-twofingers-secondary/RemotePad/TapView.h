@@ -60,12 +60,17 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 
 typedef struct {
-	UIButton *button;
 	UITouch *touch;
 	CGPoint tapLocation;
 	CGRect nonDragArea;
+	// for button click
+	UIButton *button;
 	BOOL dragMode;
 	BOOL twoFingersClick;
+	// for multi-fingers click
+	NSTimeInterval timestamp;
+	int numFingers;
+	UITouchPhase phase;
 } MouseTap;
 
 typedef struct {
@@ -88,7 +93,7 @@ typedef struct {
 	AppController *appc;
 	CGPoint start;
 	UITouchPhase phaseHistory[2];
-	MouseTap mouse1Tap, mouse2Tap, mouse3Tap, topviewTap, arrowKeyTap;
+	MouseTap mouse1Tap, mouse2Tap, mouse3Tap, topviewTap, arrowKeyTap, multiFingersTap;
 	int numTouches;
 	UIView *topview;
 	UIToolbar *bottombar;
