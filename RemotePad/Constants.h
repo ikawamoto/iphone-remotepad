@@ -98,7 +98,8 @@
 
 #define kOffsetDragBegins			50
 #define kButtonHeight				100
-
+#define kTapHoldInterval			0.3
+#define kOffsetMultiTapDrift		5
 
 // setup view constants
 
