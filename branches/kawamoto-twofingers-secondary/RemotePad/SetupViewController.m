@@ -151,6 +151,12 @@ enum TableSections
 	[tapViewController setEnableAccelMouse:value];
 }
 
+- (void)changeTwoFingersSecondary:(id)sender {
+	BOOL value = [sender isOn];
+	[[NSUserDefaults standardUserDefaults] setInteger:value forKey:kDefaultKeyTwoFingersSecondary];
+	[tapViewController setTwoFingersSecondary:value];
+}
+
 - (void)resetButtonLocation {
 	[tapViewController setTopviewLocation:CGPointMake(0, 0)];
 	[tapViewController prepareToolbarsAndStatusbar];
@@ -254,7 +260,7 @@ enum TableSections
 			number = 3;
 			break;
 		case kSectionClickingOptions:
-			number = 4;
+			number = 6;
 			break;
 	}
 	return number;
@@ -273,10 +279,15 @@ enum TableSections
 			height = kUIRowSwitchHeight;
 			break;
 		case kSectionClickingOptions:
-			if ([indexPath row] <= 2)
-				height = kUIRowSwitchHeight;
-			else
-				height = kUIRowCommentHeight;
+			switch ([indexPath row]) {
+				case 3:
+				case 5:
+					height = kUIRowCommentHeight;
+					break;
+				default:
+					height = kUIRowSwitchHeight;
+					break;
+			}
 			break;
 		case kSectionArrowKeyGestures:
 			if ([indexPath row] == 0)
@@ -393,8 +404,20 @@ enum TableSections
 				switchui.backgroundColor = [UIColor clearColor];
 				[cell setAccessoryView:switchui];
 				[switchui release];
-			} else {
+			} else if (row == 3) {
 				[cell setText:@"tap again to release"];
+				[cell setIndentationLevel:1];
+				[cell setFont:[UIFont systemFontOfSize:14.0]];
+			} else if (row == 4) {
+				[cell setText:@"Secondary clicking"];
+				switchui = [[UISwitch alloc] initWithFrame:CGRectZero];
+				[switchui addTarget:self action:@selector(changeTwoFingersSecondary:) forControlEvents:UIControlEventValueChanged];
+				switchui.on = tapViewController.twoFingersSecondary;
+				switchui.backgroundColor = [UIColor clearColor];
+				[cell setAccessoryView:switchui];
+				[switchui release];
+			} else {
+				[cell setText:@"by two fingers"];
 				[cell setIndentationLevel:1];
 				[cell setFont:[UIFont systemFontOfSize:14.0]];
 			}

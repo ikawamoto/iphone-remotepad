@@ -47,6 +47,7 @@
 #define kDefaultKeyScrollWithMouse3			@"scrollWithMouse3"
 #define kDefaultKeyEnableAccelMouse			@"enableAccelMouse"
 #define kDefaultKeyServerName				@"serverName"
+#define kDefaultKeyTwoFingersSecondary		@"twoFingersSecondary"
 // application defaults values
 #define kDefaultVersion					kVersion
 #define kDefaultNumberOfButtons			@"3"
@@ -62,6 +63,7 @@
 #define kDefaultScrollWithMouse3		@"NO"
 #define kDefaultEnableAccelMouse		@"NO"
 #define kDefaultServerName				@""
+#define kDefaultTwoFingersSecondary		@"YES"
 
 // Bonjour constants
 
@@ -99,7 +101,7 @@
 #define kOffsetDragBegins			50
 #define kButtonHeight				100
 #define kTapHoldInterval			0.3
-#define kOffsetMultiTapDrift		5
+#define kOffsetMultiTapDrift		4
 
 // setup view constants
 
