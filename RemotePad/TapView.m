@@ -244,7 +244,6 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	mouse3Tap.touch = nil;
 	topviewTap.touch = nil;
 	arrowKeyTap.touch = nil;
-	multiFingersTap.touch = nil;
 	mouse1Tap.dragMode = NO;
 	mouse2Tap.dragMode = NO;
 	mouse3Tap.dragMode = NO;
@@ -365,25 +364,25 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 				[mouse3Tap.button setSelected:NO];
 				mouse3Tap.dragMode = NO;
 			}
+		} else if (clickByTap) {
+			dragByTapDragMode = NO;
+			numTouches++;
+			if (numTouches == 1) {
+				currAccel.enabled = YES;
+				currAccel.stopping = NO;
+			}
+			prevDelta = CGPointZero;
 		} else {
 			numTouches++;
 			if (numTouches == 1) {
 				currAccel.enabled = YES;
 				currAccel.stopping = NO;
-				multiFingersTap.touch = touch;
-				multiFingersTap.timestamp = touch.timestamp;
-				multiFingersTap.phase = touch.phase;
 			}
-			multiFingersTap.numFingers = numTouches;
 			prevDelta = CGPointZero;
-			if (clickByTap) {
-				dragByTapDragMode = NO;
-			} else {
-				// Timer for click & drag gestures
-				[clickTimer invalidate];
-				clickTimer = [NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(clicked:) userInfo:[NSArray arrayWithObjects:[NSNumber numberWithInt:numTouches], [NSNumber numberWithUnsignedInteger:tapCount], nil] repeats:NO];
-				clickTimerTouch = touch;
-			}
+			// Timer for click & drag gestures
+			[clickTimer invalidate];
+			clickTimer = [NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(clicked:) userInfo:[NSArray arrayWithObjects:[NSNumber numberWithInt:numTouches], [NSNumber numberWithUnsignedInteger:tapCount], nil] repeats:NO];
+			clickTimerTouch = touch;
 		}
 	}
 	phaseHistory[1] = phaseHistory[0];
@@ -404,14 +403,12 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 			topviewTap.nonDragArea = CGRectMake(touchPoint.x - kOffsetDragBegins, touchPoint.y - kOffsetDragBegins, kOffsetDragBegins * 2, kOffsetDragBegins * 2);
 			topviewTap.dragMode = NO;
 			numTouches--;
-			multiFingersTap.touch = nil;
 		} else if (numberArrowKeyGesture && numberArrowKeyGesture == tapCount && !arrowKeyTap.touch && oldNumTouches == 1) {
 			arrowKeyTap.touch = clickTimerTouch;
 			arrowKeyTap.tapLocation = touchPoint;
 			arrowKeyTap.nonDragArea = CGRectMake(touchPoint.x - kOffsetDragBegins, touchPoint.y - kOffsetDragBegins, kOffsetDragBegins * 2, kOffsetDragBegins * 2);
 			arrowKeyTap.dragMode = NO;
 			numTouches--;
-			multiFingersTap.touch = nil;
 		}
 	} else {
 		// click and release
