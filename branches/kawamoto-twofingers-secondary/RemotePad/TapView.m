@@ -244,13 +244,13 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	mouse3Tap.touch = nil;
 	topviewTap.touch = nil;
 	arrowKeyTap.touch = nil;
+	multiFingersTap.touch = nil;
 	mouse1Tap.dragMode = NO;
 	mouse2Tap.dragMode = NO;
 	mouse3Tap.dragMode = NO;
 	topviewTap.dragMode = NO;
 	arrowKeyTap.dragMode = NO;
 	numTouches = 0;
-	phaseHistory[0] = phaseHistory[1] = UITouchPhaseCancelled;
 	prevDelta = CGPointZero;
 	dragByTapDragMode = NO;
 	currAccel.enabled = NO;
@@ -347,7 +347,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 			mouse2Tap.touch = touch;
 			if (!mouse2Tap.dragMode) {
 				mouse2Tap.twoFingersClick = (numTouches == 2);
-				[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(mouse1Tap.twoFingersClick ? 1 : 1, tapCount) time:event.timestamp];
+				[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(mouse2Tap.twoFingersClick ? 1 : 1, tapCount) time:event.timestamp];
 			} else {
 				[mouse2Tap.button setSelected:NO];
 				mouse2Tap.dragMode = NO;
@@ -358,35 +358,37 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 			if (!mouse3Tap.dragMode) {
 				if (!scrollWithMouse3) {
 					mouse3Tap.twoFingersClick = (numTouches == 2);
-					[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(mouse1Tap.twoFingersClick ? 1 : 2, tapCount) time:event.timestamp];
+					[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(mouse3Tap.twoFingersClick ? 1 : 2, tapCount) time:event.timestamp];
 				}
 			} else {
 				[mouse3Tap.button setSelected:NO];
 				mouse3Tap.dragMode = NO;
 			}
-		} else if (clickByTap) {
-			dragByTapDragMode = NO;
-			numTouches++;
-			if (numTouches == 1) {
-				currAccel.enabled = YES;
-				currAccel.stopping = NO;
-			}
-			prevDelta = CGPointZero;
 		} else {
 			numTouches++;
 			if (numTouches == 1) {
 				currAccel.enabled = YES;
 				currAccel.stopping = NO;
+				multiFingersTap.touch = touch;
+				multiFingersTap.timestamp = touch.timestamp;
+				multiFingersTap.phase = touch.phase;
+				multiFingersTap.numFingers = numTouches;
+			} else if (multiFingersTap.phase == UITouchPhaseBegan) {
+				multiFingersTap.numFingers = numTouches;
+			} else {
+				multiFingersTap.phase = UITouchPhaseCancelled;
 			}
 			prevDelta = CGPointZero;
-			// Timer for click & drag gestures
-			[clickTimer invalidate];
-			clickTimer = [NSTimer scheduledTimerWithTimeInterval:0.4 target:self selector:@selector(clicked:) userInfo:[NSArray arrayWithObjects:[NSNumber numberWithInt:numTouches], [NSNumber numberWithUnsignedInteger:tapCount], nil] repeats:NO];
-			clickTimerTouch = touch;
+			if (clickByTap) {
+				dragByTapDragMode = NO;
+			} else {
+				// Timer for click & drag gestures
+				[clickTimer invalidate];
+				clickTimer = [NSTimer scheduledTimerWithTimeInterval:kTapHoldInterval target:self selector:@selector(clicked:) userInfo:[NSArray arrayWithObjects:[NSNumber numberWithInt:numTouches], [NSNumber numberWithUnsignedInteger:tapCount], nil] repeats:NO];
+				clickTimerTouch = touch;
+			}
 		}
 	}
-	phaseHistory[1] = phaseHistory[0];
-	phaseHistory[0] = UITouchPhaseBegan;
 }
 
 - (void)clicked:(NSTimer*)theTimer {
@@ -403,12 +405,14 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 			topviewTap.nonDragArea = CGRectMake(touchPoint.x - kOffsetDragBegins, touchPoint.y - kOffsetDragBegins, kOffsetDragBegins * 2, kOffsetDragBegins * 2);
 			topviewTap.dragMode = NO;
 			numTouches--;
+			multiFingersTap.touch = nil;
 		} else if (numberArrowKeyGesture && numberArrowKeyGesture == tapCount && !arrowKeyTap.touch && oldNumTouches == 1) {
 			arrowKeyTap.touch = clickTimerTouch;
 			arrowKeyTap.tapLocation = touchPoint;
 			arrowKeyTap.nonDragArea = CGRectMake(touchPoint.x - kOffsetDragBegins, touchPoint.y - kOffsetDragBegins, kOffsetDragBegins * 2, kOffsetDragBegins * 2);
 			arrowKeyTap.dragMode = NO;
 			numTouches--;
+			multiFingersTap.touch = nil;
 		}
 	} else {
 		// click and release
@@ -438,12 +442,25 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 				[appc send:EVENT_MOUSE_UP with:MouseEventValue(mouse3Tap.twoFingersClick ? 1 : 2, tapCount) time:event.timestamp];
 			[mouse3Tap.button setHighlighted:NO];
 			mouse3Tap.touch = nil;
-		} else if (clickByTap) {
+		} else if (touch == topviewTap.touch) {
+			topviewTap.touch = nil;
+		} else if (touch == arrowKeyTap.touch) {
+			arrowKeyTap.touch = nil;
+		} else {
 			numTouches--;
-			if (numTouches == 0)
+			if (numTouches == 0) {
 				currAccel.stopping = YES;
+				multiFingersTap.touch = nil;
+			}
+			if (multiFingersTap.phase == UITouchPhaseBegan) {
+				multiFingersTap.phase = UITouchPhaseEnded;
+			}
 			prevDelta = CGPointZero;
-			if (tapCount > 0 && numTouches == 0 && phaseHistory[0] == UITouchPhaseBegan) {
+			if (!clickByTap) {
+				// Timer for click & drag gestures
+				if (clickTimerTouch == touch)
+					clickTimerTouch = nil;
+			} else if (event.timestamp - multiFingersTap.timestamp < kTapHoldInterval && numTouches == 0 && multiFingersTap.phase == UITouchPhaseEnded) {
 				if (mouse1Tap.dragMode) {
 					[appc send:EVENT_MOUSE_UP with:MouseEventValue(mouse1Tap.twoFingersClick ? 1 : 0, tapCount) time:event.timestamp];
 					[mouse1Tap.button setSelected:NO];
@@ -460,35 +477,21 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 					[appc send:EVENT_MOUSE_UP with:MouseEventValue(0, tapCount) time:event.timestamp];
 					dragByTapDragMode = NO;
 				} else {
-					[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(0, tapCount) time:event.timestamp];
-					[appc send:EVENT_MOUSE_UP with:MouseEventValue(0, tapCount) time:event.timestamp];
+					[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(multiFingersTap.numFingers == 2 ? 1 : 0, tapCount) time:event.timestamp];
+					[appc send:EVENT_MOUSE_UP with:MouseEventValue(multiFingersTap.numFingers == 2 ? 1 : 0, tapCount) time:event.timestamp];
 				}
 			} else if (dragByTapDragMode && !dragByTapLock) {
 				[appc send:EVENT_MOUSE_UP with:MouseEventValue(0, tapCount) time:event.timestamp];
 				dragByTapDragMode = NO;
 			}
-		} else if (touch == topviewTap.touch) {
-			topviewTap.touch = nil;
-		} else if (touch == arrowKeyTap.touch) {
-			arrowKeyTap.touch = nil;
-		} else {
-			numTouches--;
-			if (numTouches == 0)
-				currAccel.stopping = YES;
-			prevDelta = CGPointZero;
-			// Timer for click & drag gestures
-			if (clickTimerTouch == touch)
-				clickTimerTouch = nil;
 		}
 	}
-	phaseHistory[1] = phaseHistory[0];
-	phaseHistory[0] = UITouchPhaseEnded;
 }
 
 - (void)touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event
 {
 	[self touchesEnded:touches withEvent:event];
-	phaseHistory[0] = UITouchPhaseCancelled;
+	multiFingersTap.phase = UITouchPhaseCancelled;
 	// Extra cancellings may come out
 	if (numTouches < 0)
 		numTouches = 0;
@@ -561,34 +564,31 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 				arrowKeyTap.tapLocation = touchPoint;
 				arrowKeyTap.nonDragArea = CGRectMake(touchPoint.x - kOffsetDragBegins, touchPoint.y - kOffsetDragBegins, kOffsetDragBegins * 2, kOffsetDragBegins * 2);
 			}
-		} else if (numTouches == 2 || scrollWithMouse3 && mouse3Tap.dragMode && numTouches == 1) {
-			if (twoFingersScroll || numTouches == 1) {
-				CGPoint delta = CGPointMake(touchPoint.x - prevPoint.x, touchPoint.y - prevPoint.y);
+		} else {
+			CGPoint delta = CGPointMake(touchPoint.x - prevPoint.x, touchPoint.y - prevPoint.y);
+			CGRect driftRect = CGRectMake(-kOffsetMultiTapDrift, -kOffsetMultiTapDrift, kOffsetMultiTapDrift*2, kOffsetMultiTapDrift*2);
+			if (numTouches >= 2 && multiFingersTap.phase == UITouchPhaseBegan && event.timestamp - multiFingersTap.timestamp < kTapHoldInterval && CGRectContainsPoint(driftRect, delta)) {
+				// multi-tap drifts frequently
+				continue;
+			}
+			multiFingersTap.phase = UITouchPhaseMoved;
+			if (twoFingersScroll && numTouches == 2 || scrollWithMouse3 && mouse3Tap.dragMode && numTouches == 1) {
 				if (allowHorizontalScroll)
 					[appc send:EVENT_MOUSE_DELTA_W with:(delta.x + prevDelta.x) / 2 time:event.timestamp];
 				[appc send:EVENT_MOUSE_DELTA_Z with:(delta.y + prevDelta.y) / 2 time:event.timestamp];
 				prevDelta = delta;
+			} else if (numTouches == 1) {
+				NSUInteger tapCount = [touch tapCount];
+				if (dragByTap && clickByTap && !dragByTapDragMode && tapCount > 1) {
+					[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(0, tapCount) time:event.timestamp];
+					dragByTapDragMode = YES;
+				}
+				[appc send:EVENT_MOUSE_DELTA_X with:(delta.x + prevDelta.x) / 2 time:event.timestamp];
+				[appc send:EVENT_MOUSE_DELTA_Y with:(delta.y + prevDelta.y) / 2 time:event.timestamp];
+				prevDelta = delta;
 			}
-		} else if (numTouches == 1) {
-			NSUInteger tapCount = [touch tapCount];
-			if (dragByTap && clickByTap && !dragByTapDragMode && tapCount > 1) {
-				[appc send:EVENT_MOUSE_DOWN with:MouseEventValue(0, tapCount) time:event.timestamp];
-				dragByTapDragMode = YES;
-			}
-			if (phaseHistory[0] == UITouchPhaseBegan) {
-				// ignore first move
-				phaseHistory[1] = phaseHistory[0];
-				phaseHistory[0] = UITouchPhaseMoved;
-				continue;
-			}
-			CGPoint delta = CGPointMake(touchPoint.x - prevPoint.x, touchPoint.y - prevPoint.y);
-			[appc send:EVENT_MOUSE_DELTA_X with:(delta.x + prevDelta.x) / 2 time:event.timestamp];
-			[appc send:EVENT_MOUSE_DELTA_Y with:(delta.y + prevDelta.y) / 2 time:event.timestamp];
-			prevDelta = delta;
 		}
 	}
-	phaseHistory[1] = phaseHistory[0];
-	phaseHistory[0] = UITouchPhaseMoved;
 }
 
 
