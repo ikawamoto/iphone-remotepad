@@ -11,8 +11,6 @@
   * server name bookmarks
   * software keyboard
     * encryption?
-  * landscape mode
-  * secondary click, place two fingers on a pad then tap a pad
 
 = !RemotePad Server =
 
