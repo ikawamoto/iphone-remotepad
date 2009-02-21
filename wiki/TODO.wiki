@@ -5,13 +5,20 @@
   * client or server authentication
     * Password
     * PIN
+  * encryption
 
 = !RemotePad =
 
   * server name bookmarks
+  * 3- and 4-finger gestures
   * software keyboard
     * encryption?
-  * acceleration of tracking speed
+  * customizable buttons
+    * tab key, shift key, function keys, and misc
+  * acceleration of tracking speed (implemented by 1.4)
+  * display a desktop screenshot in the pad
+    * screenshot images transfer protocol
+    * mouse location feedbacks from a server
 
 = !RemotePad Server =
 
