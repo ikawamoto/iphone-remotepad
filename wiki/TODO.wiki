@@ -13,12 +13,18 @@
   * 3- and 4-finger gestures
   * software keyboard
     * encryption?
-  * customizable buttons
+  * more clicking buttons like a 5 button mouse
+  * customizable tool bars
     * tab key, shift key, function keys, and misc
   * acceleration of tracking speed (implemented by 1.4)
+  * scroll wheel or scroll bar
   * display a desktop screenshot in the pad
     * screenshot images transfer protocol
     * mouse location feedbacks from a server
+  * resizable buttons
+  * different shaped buttons
+    * hot corner buttons
+    * downloadable button images
 
 = !RemotePad Server =
 
