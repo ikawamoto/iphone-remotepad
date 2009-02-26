@@ -6,6 +6,7 @@
     * Password
     * PIN
   * encryption
+  * version detection and update notify
 
 = !RemotePad =
 
@@ -16,7 +17,7 @@
   * more clicking buttons like a 5 button mouse
   * customizable tool bars
     * tab key, shift key, function keys, and misc
-  * acceleration of tracking speed (implemented by 1.4)
+  * acceleration of tracking speed (to be implemented by 1.4)
   * scroll wheel or scroll bar
   * display a desktop screenshot in the pad
     * screenshot images transfer protocol
