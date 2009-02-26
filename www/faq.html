@@ -1,0 +1,193 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-2022-JP">
+    <title>RemotePad for iPhone FAQ</title>
+    <link rel="stylesheet" href="default.css" type="text/css">
+<!-- $Id: faq.html,v 1.3 2009/02/17 07:50:34 kawamoto Exp $ -->
+  </head>
+
+  <body>
+
+    <img align="left" src="RemotePad.png" id="topimage">
+    <h2>RemotePad for iPhone FAQ</h2>
+
+    <div id="headerbar">
+      <a href="index.html">Overview</a>
+      <a href="downloads.html">Downloads</a>
+      <span>FAQ</span>
+      <a href="usage.html">Usage</a>
+      <a href="http://groups.google.com/group/remotepad/topics">Forums</a>
+      <a href="screenshots.html">Screenshots</a>
+      <a href="source.html">Source</a>
+    </div>
+
+    <hr>
+
+    <h3>Questions list</h3>
+
+    <ul>
+      <li><a class="question" href="#port">Q: What is port number?</a>
+      <li><a class="question" href="#ipport">Q: How can I find out IP address and port number?</a>
+      <li><a class="question" href="#addressfamily">Q: What does "Address family not supported by protocol family" mean?</a>
+      <li><a class="question" href="#timedout">Q: What does "Operation timed out" mean?</a>
+      <li><a class="question" href="#noroute">Q: What does "No route to host" mean?</a>
+      <li><a class="question" href="#accelerometer">Q: Why mouse cursor doesn't move when I move iPhone with enabling 'Mouse moving by Accelerometer' feature?</a>
+      <li><a class="question" href="#disconnected">Q: What does "Peer Disconnected" mean?</a>
+    </ul>
+
+    <hr>
+
+    <h3>Questions and Answers</h3>
+
+    <ul>
+      <li><a class="question" name="port">Q: What is port number?</a>
+
+	<p>
+	  In a word, please use 5583.
+	</p>
+
+	<p>
+	  Network applications need a port number to connect with others.
+	  Most applications have well known numbers, but RemotePad does not.
+
+	  So please enter '5583' for a port number.
+	</p>
+
+      <li><a class="question" name="ipport">Q: How can I find out IP address and port number?</a>
+
+	<p>
+	  If you use a Windows, please enter the IP address and the
+	  port number that RemotePad Server displays.
+	</p>
+
+	<p>
+	  If you use a Mac, you don't have to enter the IP address and
+	  a port number for your Mac, you could select the name of
+	  your Mac in a list.
+
+	  <a href="http://www.tenjin.org/RemotePad/picker1.png">This
+	  image</a> shows a list of names which you can select.
+
+	  (Only one Mac named 'shloeder' is found in a list of this image.)
+
+	  In technically, iPhone/iPod touch serarches your Mac with
+	  Bonjour technology, so we don't have to and could not know
+	  the IP and port of Macs.
+	</p>
+
+	<p>
+	  If you cannot show your Mac in this list, please check the
+	  WiFi connection of an iPhone/iPod touch is fine, and an
+	  iPhone/iPod touch and your Mac are in the same network.
+	</p>
+
+	<p>
+	  If you use an UNIX like Linux, please check your network
+	  configuration and find the IP address that you use.
+
+	  The port number is 5583.
+	</p>
+
+      <li><a class="question" name="addressfamily">Q: What does "Address family not supported by protocol family" mean?</a>
+
+	<p>
+	  If you use a server for Mac OS X version, please check the
+	  "Firewall" tab settings in the "Security" part of the
+	  "System Preferences".
+
+	  The Firewall tab shows allowing or denying connections of your Mac.
+	  RemotePad Server needs one of following settings to use.
+
+	  <ul>
+	    <li>Check a "Set access for specific services and applications" option
+	      and click an "Allow" button in the popup dialog window which appears
+	      when you start the Server.
+	      <br>
+	      or,
+	    <li>Check an "Allow all incoming connections" option.
+	  </ul>
+
+	  NOTE: This changes the network security behavior of your Mac.
+	</p>
+
+      <li><a class="question" name="timedout">Q: What does "Operation timed out" mean?</a>
+
+	<p>
+	  There are many reasons to display "Operation timed out" error.
+	</p>
+
+	<p>
+	  One reason is the Windows Firewall.
+
+	  If you enable an option "Don't allow exceptions" on a
+	  General tab of the Windows Firewall, or if you disable an
+	  option "Display a notification when Windows Firewall blocks
+	  a program" on a Exceptions tab of the Windows Firewall,
+	  please disable a option "Don't allow exceptions", and enable
+	  a option "Display a notification when Windows Firewall
+	  blocks a program".
+	  <br>
+	  NOTE: This changes a your PC's behavior of network security.
+	</p>
+
+	<p>
+	  Another reason is typing an incorrect IP address and a port number.
+
+	  IP addresses and port numbers are not familiar things for
+	  everyone, please enter carefully.
+	</p>
+
+      <li><a class="question" name="noroute">Q: What does "No route to host" mean?</a>
+
+	<p>
+	  The error message "No route to host" means that your iPhone
+	  / iPod touch does not have a network connection or route to
+	  a RemotePad Server.
+
+	  I guess two reasons for this error.
+
+	  <ol>
+	    <li> Your iPhone / iPod touch and your PC are not in a same
+	      network, and your home router or your home wireless access
+	      point does not allow communications between your iPhone /
+	      iPod and your PC.  To solve the problem, you have to
+	      change the setting of your home router or your home
+	      wireless access point.
+
+	    <li> Your iPhone / iPod touch does not connect to your
+	      network.  Please be sure that your iPhone / iPod touch
+	      join the correct WiFi network.
+	  </ol>
+	</p>
+
+      <li><a class="question" name="accelerometer">Q: Why mouse cursor doesn't move when I move iPhone with enabling 'Mouse moving by Accelerometer' feature?</a>
+
+	<p>
+	  Keep tapping a touch pad area for mouse moving by
+	  Accelerometer.
+	</p>
+
+      <li><a class="question" name="disconnected">Q: What does "Peer Disconnected" mean?</a>
+
+	<p>
+	  The error message "Peer Disconnected" means the network
+	  connection with a server is closed or ended with some reasons.
+
+	  This may occur when followings:
+	  <ul>
+	    <li> mainly, iPhone/iPod touch WiFi connection is closed, or
+	    <li> the server program on your PC is terminated, or
+	    <li> rarely, iPhone OS network is unstable.
+	  </ul>
+	</p>
+
+    </ul>
+
+    <hr>
+
+    Copyright &copy; 2009 All rights reserved.  <a href="mailto:RemotePad-request@tenjin.org">RemotePad-request@tenjin.org</a>
+
+  </body>
+
+</html>

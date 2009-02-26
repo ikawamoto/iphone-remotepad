@@ -1,0 +1,33 @@
+body {
+    background-color: #eee;
+}
+#topimage {
+    margin: 1ex 1em 1ex 0em;
+}
+hr {
+    clear: both;
+}
+#headerbar {
+}
+#headerbar span {
+    margin: 0.1ex;
+    padding: 0.5ex;
+    border: 1px solid #88f;
+    font-weight: bold;
+}
+#headerbar a {
+    margin: 0.1ex;
+    padding: 0.5ex;
+    color: #000;
+    background-color: #fff;
+    border: 1px solid #aaa;
+}
+#headerbar a:hover {
+    color: #00f;
+}
+#quote {
+    margin: 2ex;
+}
+a.question {
+    font-weight: bold;
+}
