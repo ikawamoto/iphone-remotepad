@@ -26,6 +26,8 @@
   * different shaped buttons
     * hot corner buttons
     * downloadable button images
+  * pinch gestures
+    * zoom in/out the server side screens
 
 = !RemotePad Server =
 
