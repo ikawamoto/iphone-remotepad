@@ -107,7 +107,7 @@
       <li><a class="question" name="addressfamily">Q: What does "Address family not supported by protocol family" mean?</a>
 
 	<p>
-	  If you use a server for Mac OS X version, please check the
+	  If you use a server for Mac OS X 10.5, please check the
 	  "Firewall" tab settings in the "Security" part of the
 	  "System Preferences".
 
@@ -121,6 +121,27 @@
 	      <br>
 	      or,
 	    <li>Check an "Allow all incoming connections" option.
+	      I guess many of you don't want to do this.
+	  </ul>
+
+	  NOTE: This changes the network security behavior of your Mac.
+	</p>
+
+	<p>
+	  If you use a server for Mac OS X 10.4, please check the
+	  "Firewall" tab settings in the "Sharing" part of the
+	  "System Preferences".
+
+	  The Firewall tab shows allowing connections of your Mac.
+	  RemotePad Server needs one of following settings to use.
+
+	  <ul>
+	    <li>Click a "New..." button, select a "Port Name" to an "Other",
+	      enter a number 5583 in a "TCP Port Number(s)", enter
+	      a "Description" like as a "RemotePad Server", and click "OK".
+	      Leave an "UDP Port Number(s)" as a blank.
+	    <li>Click a "Stop" button to disable the Firewall function.
+	      I guess many of you don't want to do this.
 	  </ul>
 
 	  NOTE: This changes the network security behavior of your Mac.
@@ -133,7 +154,7 @@
 	</p>
 
 	<p>
-	  One reason is the Windows Firewall.
+	  If you use a server for Windows, one reason is the Windows Firewall.
 
 	  If you enable an option "Don't allow exceptions" on a
 	  General tab of the Windows Firewall, or if you disable an
