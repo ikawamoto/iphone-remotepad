@@ -12,12 +12,11 @@
 
   * server name bookmarks
   * 3- and 4-finger gestures
-  * software keyboard
-    * encryption?
+  * software keyboard (implemented by 1.4)
+    * encryption
   * more clicking buttons like a 5 button mouse
   * customizable tool bars
     * tab key, shift key, function keys, and misc
-  * acceleration of tracking speed (to be implemented by 1.4)
   * scroll wheel or scroll bar
   * display a desktop screenshot in the pad
     * screenshot images transfer protocol
@@ -32,4 +31,5 @@
 = !RemotePad Server =
 
   * menubar application for Mac OS X (contact: rpaulo at gmail.com)
-  * tasktray or windows service application for Windows
+    * some more notices to users
+  * tasktray or windows service application for Windows (to be implemented by 2.0 for Windows)
