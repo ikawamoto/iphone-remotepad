@@ -27,6 +27,7 @@
     <h3>Questions list</h3>
 
     <ul>
+      <li><a class="question" href="#dock">Q: Why doesn't a RemotePad Server for Mac OS X appear in the Dock or the "Force Quit Applications" menu?</a>
       <li><a class="question" href="#quit">Q: How to quit and uninstall a RemotePad Server?</a>
       <li><a class="question" href="#keyboard">Q: Why can't I enter text with a software keyboard?</a>
       <li><a class="question" href="#disappear">Q: Why does a software keyboard disappear after clicking 'I understand'?</a>
@@ -64,6 +65,15 @@
 	  To uninstall, delete a file "remotepad" usually located in "/usr/local/bin/".
 	</p>
 
+      <li><a class="question" name="dock">Q: Why doesn't a RemotePad Server for Mac OS X appear in the Dock or the "Force Quit Applications" menu?</a>
+
+	<p>
+	  It is because a server for Mac OS X is a daemon process.
+	  If you prefer the app showing in the Dock, there is a hack to do so.
+	  Please edit a text file named "Info.plist" inside the app, and remove
+	  the NSUIElement key and a following line (string 1).
+	</p>
+
       <li><a class="question" name="keyboard">Q: Why can't I enter text with a software keyboard?</a>
 
 	<p>
@@ -75,6 +85,16 @@
 	    <li>Version 2.2 and later for Mac OS X
 	    <li>Version 1.8 and later for Windows, Linux and BSD
 	  </ul>
+	</p>
+
+	<p>
+	  On the other hand, there are some reports of non-availability
+	  with Mac OS X.
+	  We are investigating this, and we guess that keyboard layouts
+	  of your Mac may be related to this problem.
+	  If you think this is your case, please tell me your keyboard layouts
+	  settings on "System Preferences" - "International" - "Input Menu",
+	  and also please try with another keyboard layouts.
 	</p>
 
       <li><a class="question" name="disappear">Q: Why does a software keyboard disappear after clicking 'I understand'?</a>
