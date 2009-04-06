@@ -27,6 +27,7 @@
     * downloadable button images
   * pinch gestures
     * zoom in/out the server side screens
+  * timer display
 
 = !RemotePad Server =
 
