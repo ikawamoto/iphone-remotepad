@@ -28,9 +28,11 @@
   * pinch gestures
     * zoom in/out the server side screens
   * timer display
+  * pen tablet mode
 
 = !RemotePad Server =
 
   * menubar application for Mac OS X (contact: rpaulo at gmail.com)
     * some more notices to users
-  * tasktray or windows service application for Windows (to be implemented by 2.0 for Windows)
+  * tasktray application for Windows (implemented by 2.0 for Windows)
+  * windows service application
