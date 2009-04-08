@@ -17,6 +17,8 @@
   * more clicking buttons like a 5 button mouse
   * customizable tool bars
     * tab key, shift key, function keys, and misc
+    * run programs or scripts
+    * control other applications
   * scroll wheel or scroll bar
   * display a desktop screenshot in the pad
     * screenshot images transfer protocol
