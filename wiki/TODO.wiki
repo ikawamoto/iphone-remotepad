@@ -38,3 +38,7 @@
     * some more notices to users
   * tasktray application for Windows (implemented by 2.0 for Windows)
   * windows service application
+  * server configuration
+    * port
+    * authorized clients
+    * outputs
