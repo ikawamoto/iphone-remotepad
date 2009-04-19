@@ -38,6 +38,7 @@
       <li><a class="question" href="#noroute">Q: What does "No route to host" mean?</a>
       <li><a class="question" href="#accelerometer">Q: Why mouse cursor doesn't move when I move iPhone with enabling 'Mouse moving by Accelerometer' feature?</a>
       <li><a class="question" href="#disconnected">Q: What does "Peer Disconnected" mean?</a>
+      <li><a class="question" href="#relocatebutton">Q: How can I change a location of the mouse buttons?</a>
     </ul>
 
     <hr>
@@ -45,6 +46,15 @@
     <h3>Questions and Answers</h3>
 
     <ul>
+      <li><a class="question" name="dock">Q: Why doesn't a RemotePad Server for Mac OS X appear in the Dock or the "Force Quit Applications" menu?</a>
+
+	<p>
+	  It is because a server for Mac OS X is a daemon process.
+	  If you prefer the app showing in the Dock, there is a hack to do so.
+	  Please edit a text file named "Info.plist" inside the app, and remove
+	  the NSUIElement key and a following line (string 1).
+	</p>
+
       <li><a class="question" name="quit">Q: How to quit and uninstall a RemotePad Server?</a>
 
 	<p>
@@ -65,15 +75,6 @@
 	  If you use a server for X11, please kill a process named "remotepad".
 	  I'm sorry to say that there are no GUI way to quit.
 	  To uninstall, delete a file "remotepad" usually located in "/usr/local/bin/".
-	</p>
-
-      <li><a class="question" name="dock">Q: Why doesn't a RemotePad Server for Mac OS X appear in the Dock or the "Force Quit Applications" menu?</a>
-
-	<p>
-	  It is because a server for Mac OS X is a daemon process.
-	  If you prefer the app showing in the Dock, there is a hack to do so.
-	  Please edit a text file named "Info.plist" inside the app, and remove
-	  the NSUIElement key and a following line (string 1).
 	</p>
 
       <li><a class="question" name="keyboard">Q: Why can't I enter text with a software keyboard?</a>
@@ -259,6 +260,18 @@
 	    <li> the server program on your PC is terminated, or
 	    <li> rarely, iPhone OS network is unstable.
 	  </ul>
+	</p>
+
+      <li><a class="question" name="relocatebutton">Q: How can I change a location of the mouse buttons?</a>
+
+	<p>
+	  You can relocate the mouse buttons with following steps:
+	  <ol>
+	    <li> If you enable the setup option "Clicking (by tapping)", please disable it.
+	    <li> Do triple tapping with one finger on a tapping area, not on mouse buttons, and stay the finger on a tapping area.  It seems that nothing happens.
+	    <li> Drag the finger upward/downward where you want to relocate the buttons to.  You can see that the buttons will follow your finger.
+	    <li> Now you can re-enable the setup option "Clicking" if you disabled it temporarily.
+	  </ol>
 	</p>
 
     </ul>
