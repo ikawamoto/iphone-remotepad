@@ -31,6 +31,9 @@
     * zoom in/out the server side screens
   * timer display
   * pen tablet mode
+  * more nice accelerometer moves
+    * symbolic gestures (e.g. circle movements, line movements...)
+    * more accurate movement tracking
 
 = !RemotePad Server =
 
