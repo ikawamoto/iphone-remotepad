@@ -50,7 +50,14 @@
       <li><a class="question" name="dock">Q: Why doesn't a RemotePad Server for Mac OS X appear in the Dock or the "Force Quit Applications" menu?</a>
 
 	<p>
-	  It is because a server for Mac OS X is a daemon process.
+	  <img src="RemotePadServerForMac.png" align="right">
+	  From version 2.5, we can change a server behavior as a normal application and as an application only appeared in the system menu bar (not appeared in the Dock).
+	  If you cannot find a running server in the Dock, you can still see an arrow icon in the system menu bar.
+	  If you cannot see the arrow icon on the top right of screen, please switch current application to Finder.app, and then maybe you can see it.
+	</p>
+
+	<p>
+	  In version 2.4 and before, it is because a server for Mac OS X is a daemon process.
 	  If you prefer the app showing in the Dock, there is a hack to do so.
 	  Please edit a text file named "Info.plist" inside the app, and remove
 	  the NSUIElement key and a following line (string 1).
