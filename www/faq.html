@@ -40,6 +40,7 @@
       <li><a class="question" href="#timedout">Q: What does "Operation timed out" mean?</a>
       <li><a class="question" href="#noroute">Q: What does "No route to host" mean?</a>
       <li><a class="question" href="#disconnected">Q: What does "Peer Disconnected" mean?</a>
+      <li><a class="question" href="#refused">Q: What does "Connection refused" mean?</a>
     </ul>
 
     <hr>
@@ -287,6 +288,28 @@
 	    <li> the server program on your PC is terminated, or
 	    <li> rarely, iPhone OS network is unstable.
 	  </ul>
+	</p>
+
+      <li><a class="question" name="refused">Q: What does "Connection refused" mean?</a>
+
+	<p>
+	  We have few information for this error.
+	  Please <a href="mailto:RemotePad-request@tenjin.org">tell us</a> or <a href="http://groups.google.com/group/remotepad/topics">post to a forum</a> any information if you know.
+	</p>
+
+	<p>
+	  The error message "Connection refused" means an attempt to
+	  connect for a server is refused.
+	  This seems your PC refuses connections, but the reality is complex.
+	  This may occur when followings:
+	  <ul>
+	    <li> your Wi-Fi access point refuses connections for some security reasons,
+	    <li> your network router refuses connections for some security reasons,
+	    <li> a Linux firewall refuses connections,
+	    <li> the RemotePad Server is not running on your PC, or
+	    <li> some other unknown reasons.
+	  </ul>
+	  If you run RemotePad Server on Linux, please check your "iptables" or "ipchains" configuration to allow connections to port 5583.
 	</p>
 
     </ul>
