@@ -549,7 +549,7 @@ enum TableSections
 	if (cell == nil)
 		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:nil] autorelease];
 	[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
-	[cell setFont:[UIFont systemFontOfSize:16.0]];
+	cell.textLabel.font = [UIFont systemFontOfSize:16.0];
 	
 	return cell;
 }
@@ -570,7 +570,7 @@ enum TableSections
 				if (numberOfButtonsCell == nil) {
 					cell = [self obtainTableCell];
 					numberOfButtonsCell = [cell retain];
-					[cell setText:@"Number of buttons"];
+					cell.textLabel.text = @"Number of buttons";
 					segment = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"1", @"2", @"3", nil]];
 					[segment addTarget:self action:@selector(changeNumButtons:) forControlEvents:UIControlEventValueChanged];
 					segment.segmentedControlStyle = UISegmentedControlStyleBar;
@@ -584,7 +584,7 @@ enum TableSections
 				if (mouseMapLeftToRightCell == nil) {
 					cell = [self obtainTableCell];
 					mouseMapLeftToRightCell = [cell retain];
-					[cell setText:@"Primary mouse button"];
+					cell.textLabel.text = @"Primary mouse button";
 					segment = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Left", @"Right", nil]];
 					[segment addTarget:self action:@selector(changeButtonMapping:) forControlEvents:UIControlEventValueChanged];
 					segment.segmentedControlStyle = UISegmentedControlStyleBar;
@@ -598,7 +598,7 @@ enum TableSections
 				if (doLabelsForMouseButtonsCell == nil) {
 					cell = [self obtainTableCell];
 					doLabelsForMouseButtonsCell = [cell retain];
-					[cell setText:@"Display button labels"];
+					cell.textLabel.text = @"Display button labels";
 					switchui = [[UISwitch alloc] initWithFrame:CGRectZero];
 					[switchui addTarget:self action:@selector(changeDoLabelsForMouseButtons:) forControlEvents:UIControlEventValueChanged];
 					switchui.on = tapViewController.doLabelsForMouseButtons;
@@ -614,7 +614,7 @@ enum TableSections
 				if (twoFingersScrollCell == nil) {
 					cell = [self obtainTableCell];
 					twoFingersScrollCell = [cell retain];
-					[cell setText:@"Use two fingers to scroll"];
+					cell.textLabel.text = @"Use two fingers to scroll";
 					switchui = [[UISwitch alloc] initWithFrame:CGRectZero];
 					[switchui addTarget:self action:@selector(changeTwoFingersScroll:) forControlEvents:UIControlEventValueChanged];
 					switchui.on = tapViewController.twoFingersScroll;
@@ -627,7 +627,7 @@ enum TableSections
 				if (allowHorizontalScrollCell == nil) {
 					cell = [self obtainTableCell];
 					allowHorizontalScrollCell = [cell retain];
-					[cell setText:@"Allow horizontal scrolling"];
+					cell.textLabel.text = @"Allow horizontal scrolling";
 					switchui = [[UISwitch alloc] initWithFrame:CGRectZero];
 					[switchui addTarget:self action:@selector(changeAllowHorizontalScroll:) forControlEvents:UIControlEventValueChanged];
 					switchui.on = tapViewController.allowHorizontalScroll;
@@ -640,7 +640,7 @@ enum TableSections
 				if (scrollWithMouse3Cell == nil) {
 					cell = [self obtainTableCell];
 					scrollWithMouse3Cell = [cell retain];
-					[cell setText:@"Center button scrolling"];
+					cell.textLabel.text = @"Center button scrolling";
 					switchui = [[UISwitch alloc] initWithFrame:CGRectZero];
 					[switchui addTarget:self action:@selector(changeScrollWithMouse3:) forControlEvents:UIControlEventValueChanged];
 					switchui.on = tapViewController.scrollWithMouse3;
@@ -653,7 +653,7 @@ enum TableSections
 				if (scrollingSpeedCell == nil) {
 					cell = [self obtainTableCell];
 					scrollingSpeedCell = [cell retain];
-					[cell setText:@"Scrolling Speed"];
+					cell.textLabel.text = @"Scrolling Speed";
 					sliderui = [[SetupSlider alloc] initWithFrame:CGRectMake(0.0, 0.0, kSliderWidth, kSliderHeight)];
 					[sliderui addTarget:self action:@selector(changeScrollingSpeed:) forControlEvents:UIControlEventValueChanged];
 					sliderui.minimumValue = 0.0;
@@ -672,7 +672,7 @@ enum TableSections
 			if (trackingSpeedCell == nil) {
 				cell = [self obtainTableCell];
 				trackingSpeedCell = [cell retain];
-				[cell setText:@"Tracking Speed"];
+				cell.textLabel.text = @"Tracking Speed";
 				sliderui = [[SetupSlider alloc] initWithFrame:CGRectMake(0.0, 0.0, kSliderWidth, kSliderHeight)];
 				[sliderui addTarget:self action:@selector(changeTrackingSpeed:) forControlEvents:UIControlEventValueChanged];
 				sliderui.minimumValue = 0.0;
@@ -691,7 +691,7 @@ enum TableSections
 				if (clickByTapCell == nil) {
 					cell = [self obtainTableCell];
 					clickByTapCell = [cell retain];
-					[cell setText:@"Clicking by Tapping"];
+					cell.textLabel.text = @"Clicking by Tapping";
 					switchui = [[UISwitch alloc] initWithFrame:CGRectZero];
 					[switchui addTarget:self action:@selector(changeClickByTap:) forControlEvents:UIControlEventValueChanged];
 					switchui.on = tapViewController.clickByTap;
@@ -704,7 +704,7 @@ enum TableSections
 				if (dragByTapCell == nil) {
 					cell = [self obtainTableCell];
 					dragByTapCell = [cell retain];
-					[cell setText:@"Dragging"];
+					cell.textLabel.text = @"Dragging";
 					switchui = [[UISwitch alloc] initWithFrame:CGRectZero];
 					[switchui addTarget:self action:@selector(changeDragByTap:) forControlEvents:UIControlEventValueChanged];
 					switchui.on = tapViewController.dragByTap;
@@ -717,7 +717,7 @@ enum TableSections
 				if (dragByTapLockCell == nil) {
 					cell = [self obtainTableCell];
 					dragByTapLockCell = [cell retain];
-					[cell setText:@"Drag Lock"];
+					cell.textLabel.text = @"Drag Lock";
 					switchui = [[UISwitch alloc] initWithFrame:CGRectZero];
 					[switchui addTarget:self action:@selector(changeDragByTapLock:) forControlEvents:UIControlEventValueChanged];
 					switchui.on = tapViewController.dragByTapLock;
@@ -730,16 +730,16 @@ enum TableSections
 				if (dragByTapLockCommentCell == nil) {
 					cell = [self obtainTableCell];
 					dragByTapLockCommentCell = [cell retain];
-					[cell setText:@"tap again to release"];
+					cell.textLabel.text = @"tap again to release";
 					[cell setIndentationLevel:1];
-					[cell setFont:[UIFont systemFontOfSize:14.0]];
+					cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 				}
 				cell = dragByTapLockCommentCell;
 			} else if (row == 4) {
 				if (twoFingersSecondaryCell == nil) {
 					cell = [self obtainTableCell];
 					twoFingersSecondaryCell = [cell retain];
-					[cell setText:@"Secondary clicking"];
+					cell.textLabel.text = @"Secondary clicking";
 					switchui = [[UISwitch alloc] initWithFrame:CGRectZero];
 					[switchui addTarget:self action:@selector(changeTwoFingersSecondary:) forControlEvents:UIControlEventValueChanged];
 					switchui.on = tapViewController.twoFingersSecondary;
@@ -752,9 +752,9 @@ enum TableSections
 				if (twoFingersSecondaryCommentCell == nil) {
 					cell = [self obtainTableCell];
 					twoFingersSecondaryCommentCell = [cell retain];
-					[cell setText:@"by two fingers"];
+					cell.textLabel.text = @"by two fingers";
 					[cell setIndentationLevel:1];
-					[cell setFont:[UIFont systemFontOfSize:14.0]];
+					cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 				}
 				cell = twoFingersSecondaryCommentCell;
 			}
@@ -763,7 +763,7 @@ enum TableSections
 			if (numberToggleStatusbarCell == nil) {
 				cell = [self obtainTableCell];
 				numberToggleStatusbarCell = [cell retain];
-				[cell setText:@""];
+				cell.textLabel.text = @"";
 				segment = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Single-Click", @"Triple-Click", @"Disable", nil]];
 				[segment addTarget:self action:@selector(changeToggleStatusbarClick:) forControlEvents:UIControlEventValueChanged];
 				segment.segmentedControlStyle = UISegmentedControlStyleBar;
@@ -784,7 +784,7 @@ enum TableSections
 				if (numberArrowKeyGestureCell == nil) {
 					cell = [self obtainTableCell];
 					numberArrowKeyGestureCell = [cell retain];
-					[cell setText:@""];
+					cell.textLabel.text = @"";
 					segment = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Single-Click", @"Double-Click", @"Disable", nil]];
 					[segment addTarget:self action:@selector(changeArrowKeyGestureClick:) forControlEvents:UIControlEventValueChanged];
 					segment.segmentedControlStyle = UISegmentedControlStyleBar;
@@ -803,16 +803,16 @@ enum TableSections
 				if (numberArrowKeyGestureCommentCell == nil) {
 					cell = [self obtainTableCell];
 					numberArrowKeyGestureCommentCell = [cell retain];
-					[cell setText:@"Click and drag to input arrow key"];
-					[cell setIndentationLevel:1];
-					[cell setFont:[UIFont systemFontOfSize:14.0]];
+					cell.textLabel.text = @"Click and drag to input arrow key";
+				[cell setIndentationLevel:1];
+				cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 				}
 				cell = numberArrowKeyGestureCommentCell;
 			} else {
 				if (arrowKeyGestureOneKeyCell == nil) {
 					cell = [self obtainTableCell];
 					arrowKeyGestureOneKeyCell = [cell retain];
-					[cell setText:@"One key by One gesture"];
+					cell.textLabel.text = @"One key by One gesture";
 					switchui = [[UISwitch alloc] initWithFrame:CGRectZero];
 					[switchui addTarget:self action:@selector(changeArrowKeyGestureOneKey:) forControlEvents:UIControlEventValueChanged];
 					switchui.on = tapViewController.arrowKeyGestureOneKey;
@@ -828,7 +828,7 @@ enum TableSections
 				if (enableAccelMouseCell == nil) {
 					cell = [self obtainTableCell];
 					enableAccelMouseCell = [cell retain];
-					[cell setText:@""];
+					cell.textLabel.text = @"";
 					segment = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Pseudo high pass filter", @"Disable", nil]];
 					[segment addTarget:self action:@selector(changeEnableAccelMouse:) forControlEvents:UIControlEventValueChanged];
 					segment.segmentedControlStyle = UISegmentedControlStyleBar;
@@ -842,9 +842,9 @@ enum TableSections
 				if (enableAccelMouseCommentCell == nil) {
 					cell = [self obtainTableCell];
 					enableAccelMouseCommentCell = [cell retain];
-					[cell setText:@"Cursor moves only when you hold tapping"];
+					cell.textLabel.text = @"Cursor moves only when you hold tapping";
 					[cell setIndentationLevel:1];
-					[cell setFont:[UIFont systemFontOfSize:14.0]];
+					cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 				}
 				cell = enableAccelMouseCommentCell;
 			}
@@ -854,7 +854,7 @@ enum TableSections
 				if (autorotateOrientationCell == nil) {
 					cell = [self obtainTableCell];
 					autorotateOrientationCell = [cell retain];
-					[cell setText:@"Autorotating orientation"];
+					cell.textLabel.text = @"Autorotating orientation";
 					switchui = [[UISwitch alloc] initWithFrame:CGRectZero];
 					[switchui addTarget:self action:@selector(changeAutorotateOrientation:) forControlEvents:UIControlEventValueChanged];
 					switchui.on = tapViewController.autorotateOrientation;
@@ -867,7 +867,7 @@ enum TableSections
 				if (prohibitSleepingCell == nil) {
 					cell = [self obtainTableCell];
 					prohibitSleepingCell = [cell retain];
-					[cell setText:@"Prohibit sleeping"];
+					cell.textLabel.text = @"Prohibit sleeping";
 					switchui = [[UISwitch alloc] initWithFrame:CGRectZero];
 					[switchui addTarget:self action:@selector(changeProhibitSleeping:) forControlEvents:UIControlEventValueChanged];
 					switchui.on = tapViewController.prohibitSleeping;
@@ -883,7 +883,7 @@ enum TableSections
 				if (topviewLocationCell == nil) {
 					cell = [self obtainTableCell];
 					topviewLocationCell = [cell retain];
-					[cell setText:@""];
+					cell.textLabel.text = @"";
 					segment = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Top1", @"Top2", @"Bottom1", @"Bottom2", @"free", nil]];
 					topviewLocationSegment = [segment retain];
 					[segment addTarget:self action:@selector(changeButtonLocation:) forControlEvents:UIControlEventValueChanged];
@@ -898,7 +898,7 @@ enum TableSections
 				if (topviewRelocationGestureCell == nil) {
 					cell = [self obtainTableCell];
 					topviewRelocationGestureCell = [cell retain];
-					[cell setText:@"Relocation Gesture"];
+					cell.textLabel.text = @"Relocation Gesture";
 					switchui = [[UISwitch alloc] initWithFrame:CGRectZero];
 					[switchui addTarget:self action:@selector(changeTopviewRelocationGesture:) forControlEvents:UIControlEventValueChanged];
 					switchui.on = tapViewController.topviewRelocationGesture;
@@ -911,9 +911,9 @@ enum TableSections
 				if (topviewLocationCommentCell == nil) {
 					cell = [self obtainTableCell];
 					topviewLocationCommentCell = [cell retain];
-					[cell setText:@"Triple click-n-drag a tap area to relocate"];
+					cell.textLabel.text = @"Triple click-n-drag a tap area to relocate";
 					[cell setIndentationLevel:1];
-					[cell setFont:[UIFont systemFontOfSize:14.0]];
+					cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 				}
 				cell = topviewLocationCommentCell;
 			}
@@ -922,7 +922,7 @@ enum TableSections
 			if (resetSecurityWarningsCell == nil) {
 				cell = [self obtainTableCell];
 				resetSecurityWarningsCell = [cell retain];
-				[cell setText:@"Reset security warnings"];
+				cell.textLabel.text = @"Reset security warnings";
 				[cell setTextAlignment:UITextAlignmentCenter];
 				[cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
 			}
@@ -932,7 +932,7 @@ enum TableSections
 			if (connectionCell == nil) {
 				cell = [self obtainTableCell];
 				connectionCell = [cell retain];
-				[cell setText:@"Disconnect this session"];
+				cell.textLabel.text = @"Disconnect this session";
 				[cell setTextAlignment:UITextAlignmentCenter];
 				[cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
 			}
@@ -942,7 +942,7 @@ enum TableSections
 			if (versionCell == nil) {
 				cell = [self obtainTableCell];
 				versionCell = [cell retain];
-				[cell setText:@"Version"];
+				cell.textLabel.text = @"Version";
 				label = [[UILabel alloc] initWithFrame:CGRectZero];
 				[label setText:kVersionRemotePad];
 				[label setFont:[UIFont systemFontOfSize:16.0]];

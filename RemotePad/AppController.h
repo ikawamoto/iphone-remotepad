@@ -65,7 +65,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 //CLASS INTERFACES:
 
-@interface AppController : NSObject <UIApplicationDelegate, UIActionSheetDelegate, BrowserViewControllerDelegate, TCPServerDelegate>
+@interface AppController : NSObject <UIApplicationDelegate, UIActionSheetDelegate, BrowserViewControllerDelegate, TCPServerDelegate, NSStreamDelegate>
 {
 	UIWindow*			_window;
 	TCPServer*			_server;
