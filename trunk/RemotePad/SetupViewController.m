@@ -804,8 +804,8 @@ enum TableSections
 					cell = [self obtainTableCell];
 					numberArrowKeyGestureCommentCell = [cell retain];
 					cell.textLabel.text = @"Click and drag to input arrow key";
-				[cell setIndentationLevel:1];
-				cell.textLabel.font = [UIFont systemFontOfSize:14.0];
+					[cell setIndentationLevel:1];
+					cell.textLabel.font = [UIFont systemFontOfSize:14.0];
 				}
 				cell = numberArrowKeyGestureCommentCell;
 			} else {
