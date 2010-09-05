@@ -242,7 +242,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	NSUInteger count = [self.services count];
 	if (count == 0 && self.searchingForServicesString) {
         // If there are no services and searchingForServicesString is set, show one row explaining that to the user.
-        cell.text = self.searchingForServicesString;
+        cell.textLabel.text = self.searchingForServicesString;
 		cell.textColor = [UIColor colorWithWhite:0.5 alpha:0.5];
 		cell.accessoryType = UITableViewCellAccessoryNone;
 		return cell;
@@ -250,7 +250,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	
 	// Set up the text for the cell
 	NSNetService* service = [self.services objectAtIndex:indexPath.row];
-	cell.text = [service name];
+	cell.textLabel.text = [service name];
 	cell.textColor = [UIColor blackColor];
 	cell.accessoryType = self.showDisclosureIndicators ? UITableViewCellAccessoryDisclosureIndicator : UITableViewCellAccessoryNone;
 	

@@ -283,10 +283,10 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 		hiddenToolbars = !showToolbars;
 	if (showStatusbar) {
 		[bottombar setAlpha:1.0];
-		[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+		[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
 	} else {
 		[bottombar setAlpha:0.0];
-		[[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
+		[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:YES];
 	}
 	if (!temporally)
 		hiddenStatusbar = !showStatusbar;

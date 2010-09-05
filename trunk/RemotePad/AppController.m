@@ -103,7 +103,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	[_window addSubview:navigationController.view];
 	
 	//Show the window
-	[application setStatusBarHidden:NO animated:YES];
+	[application setStatusBarHidden:NO withAnimation:YES];
 	[_window makeKeyAndVisible];
 	
 	[[UIAccelerometer sharedAccelerometer] setUpdateInterval:(1.0 / kAccelerometerFrequency)];
@@ -159,7 +159,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	if (tapViewController.tapViewOrientation != UIInterfaceOrientationPortrait) {
 		[tapViewController showToolbars:NO showStatusbar:NO temporal:YES];
 		[[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
-		[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+		[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
 	}
 	[setupViewController adjustCellValues];
 	[navigationController pushViewController:setupViewController animated:YES];
@@ -185,7 +185,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 - (void) presentPicker:(NSString*)name {
 	[(Picker *)[pickerViewController view] setGameName:name];
 	[[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
-	[[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
 	[[UIAccelerometer sharedAccelerometer] setDelegate:nil];
 	[navigationController popToRootViewControllerAnimated:YES];
 }
