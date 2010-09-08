@@ -30,7 +30,8 @@
 		3AA90C550E5310070086ADCD /* TapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA90C540E5310070086ADCD /* TapView.m */; };
 		3AA90C5A0E5310420086ADCD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA90C590E5310420086ADCD /* CoreGraphics.framework */; };
 		3AC84E470E6465E100B418AE /* SetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC84E460E6465E100B418AE /* SetupViewController.m */; };
-		561989460F3B7D5E00A9A910 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 561989450F3B7D5E00A9A910 /* Default.png */; };
+		56327BD61238560A000FDD9E /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 56327BD51238560A000FDD9E /* Default-Portrait.png */; };
+		56327BEA12385670000FDD9E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 56327BE912385670000FDD9E /* Default.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -73,7 +74,8 @@
 		3AC84E460E6465E100B418AE /* SetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetupViewController.m; path = ../SetupViewController.m; sourceTree = "<group>"; wrapsLines = 0; };
 		3AD7F5490F2BFFC500CD6BF7 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = ../Common/Event.h; sourceTree = SOURCE_ROOT; };
 		3AE1F7760E6FB96F001DF387 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		561989450F3B7D5E00A9A910 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
+		56327BD51238560A000FDD9E /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
+		56327BE912385670000FDD9E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +149,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				56327BE912385670000FDD9E /* Default.png */,
 				3A998FF70F4E60DE004C7143 /* Bonjour.png */,
 				3A5FD4660F3B3A5F003DBC07 /* itunes.txt */,
 				3A1F061F0E7F9DFF0065F8A7 /* adhoc-Entitlements.plist */,
@@ -161,7 +164,6 @@
 				3A4EDFE10E64055400C2548E /* ButtonRoundedHighlighted.png */,
 				3A35DA800E5C856800061760 /* ButtonBack.png */,
 				3A011E6F0E55E3CB006B8A65 /* bg.png */,
-				561989450F3B7D5E00A9A910 /* Default.png */,
 				3A6140450E55878A00B859F3 /* icon.png */,
 				3A9C34960E8535F900F6140E /* icon.xcf */,
 				3AD7F5490F2BFFC500CD6BF7 /* Event.h */,
@@ -183,6 +185,7 @@
 		5665EC1012367F0300EFEFD9 /* Resources-iPad */ = {
 			isa = PBXGroup;
 			children = (
+				56327BD51238560A000FDD9E /* Default-Portrait.png */,
 			);
 			name = "Resources-iPad";
 			sourceTree = "<group>";
@@ -240,8 +243,9 @@
 				3A4EDFE70E64055400C2548E /* ButtonRightHighlighted.png in Resources */,
 				3A4EDFEA0E64055400C2548E /* ButtonRoundedHighlighted.png in Resources */,
 				3A1F06200E7F9DFF0065F8A7 /* adhoc-Entitlements.plist in Resources */,
-				561989460F3B7D5E00A9A910 /* Default.png in Resources */,
 				3A998FF80F4E60DE004C7143 /* Bonjour.png in Resources */,
+				56327BD61238560A000FDD9E /* Default-Portrait.png in Resources */,
+				56327BEA12385670000FDD9E /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
