@@ -923,7 +923,7 @@ enum TableSections
 				cell = [self obtainTableCell];
 				resetSecurityWarningsCell = [cell retain];
 				cell.textLabel.text = @"Reset security warnings";
-				[cell setTextAlignment:UITextAlignmentCenter];
+				cell.textLabel.textAlignment = UITextAlignmentCenter;
 				[cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
 			}
 			cell = resetSecurityWarningsCell;
@@ -933,7 +933,7 @@ enum TableSections
 				cell = [self obtainTableCell];
 				connectionCell = [cell retain];
 				cell.textLabel.text = @"Disconnect this session";
-				[cell setTextAlignment:UITextAlignmentCenter];
+				cell.textLabel.textAlignment = UITextAlignmentCenter;
 				[cell setSelectionStyle:UITableViewCellSelectionStyleBlue];
 			}
 			cell = connectionCell;

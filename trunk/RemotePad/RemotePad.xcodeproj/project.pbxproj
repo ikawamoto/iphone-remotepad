@@ -30,6 +30,8 @@
 		3AA90C550E5310070086ADCD /* TapView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AA90C540E5310070086ADCD /* TapView.m */; };
 		3AA90C5A0E5310420086ADCD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA90C590E5310420086ADCD /* CoreGraphics.framework */; };
 		3AC84E470E6465E100B418AE /* SetupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AC84E460E6465E100B418AE /* SetupViewController.m */; };
+		561D2CF512510C52001D9DDC /* NSStreamAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 561D2CF412510C52001D9DDC /* NSStreamAdditions.m */; };
+		561D2D0412510CC0001D9DDC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 561D2D0312510CC0001D9DDC /* CFNetwork.framework */; };
 		56327BD61238560A000FDD9E /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 56327BD51238560A000FDD9E /* Default-Portrait.png */; };
 		56327BEA12385670000FDD9E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 56327BE912385670000FDD9E /* Default.png */; };
 /* End PBXBuildFile section */
@@ -74,6 +76,9 @@
 		3AC84E460E6465E100B418AE /* SetupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SetupViewController.m; path = ../SetupViewController.m; sourceTree = "<group>"; wrapsLines = 0; };
 		3AD7F5490F2BFFC500CD6BF7 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = ../Common/Event.h; sourceTree = SOURCE_ROOT; };
 		3AE1F7760E6FB96F001DF387 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		561D2CF312510C52001D9DDC /* NSStreamAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSStreamAdditions.h; sourceTree = "<group>"; };
+		561D2CF412510C52001D9DDC /* NSStreamAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSStreamAdditions.m; sourceTree = "<group>"; };
+		561D2D0312510CC0001D9DDC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		56327BD51238560A000FDD9E /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-Portrait.png"; sourceTree = "<group>"; };
 		56327BE912385670000FDD9E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -87,6 +92,7 @@
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				3AA90C5A0E5310420086ADCD /* CoreGraphics.framework in Frameworks */,
+				561D2D0412510CC0001D9DDC /* CFNetwork.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -96,6 +102,8 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				561D2CF312510C52001D9DDC /* NSStreamAdditions.h */,
+				561D2CF412510C52001D9DDC /* NSStreamAdditions.m */,
 				3AC84E450E6465E100B418AE /* SetupViewController.h */,
 				3AC84E460E6465E100B418AE /* SetupViewController.m */,
 				3AA90C540E5310070086ADCD /* TapView.m */,
@@ -178,6 +186,7 @@
 				3AA90C590E5310420086ADCD /* CoreGraphics.framework */,
 				1DF5F4DF0D08C38300B7A737 /* UIKit.framework */,
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
+				561D2D0312510CC0001D9DDC /* CFNetwork.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -264,6 +273,7 @@
 				3AA90C550E5310070086ADCD /* TapView.m in Sources */,
 				3AC84E470E6465E100B418AE /* SetupViewController.m in Sources */,
 				3A0D680F0E70E17F00142E59 /* PickerViewController.m in Sources */,
+				561D2CF512510C52001D9DDC /* NSStreamAdditions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
