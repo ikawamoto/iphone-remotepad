@@ -60,6 +60,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 #import "Picker.h"
 #import "AppController.h"
 #import "Constants.h"
+#import "NSStreamAdditions.h"
 
 @interface Picker ()
 @property (nonatomic, retain, readwrite) BrowserViewController* bvc;
@@ -110,11 +111,11 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 		[label release];
 
 		self.gameNameLabel = [UIButton buttonWithType:UIButtonTypeCustom];
-		[self.gameNameLabel setFont:[UIFont boldSystemFontOfSize:24.0]];
-		[self.gameNameLabel setLineBreakMode:UILineBreakModeTailTruncation];
+		self.gameNameLabel.titleLabel.font = [UIFont boldSystemFontOfSize:24.0];
+		self.gameNameLabel.titleLabel.lineBreakMode = UILineBreakModeTailTruncation;
 		[self.gameNameLabel setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 		[self.gameNameLabel setTitleShadowColor:[UIColor colorWithWhite:0.0 alpha:0.75] forState:UIControlStateNormal];
-		[self.gameNameLabel setTitleShadowOffset:CGSizeMake(1,1)];
+		self.gameNameLabel.titleLabel.shadowOffset = CGSizeMake(1,1);
 		[self.gameNameLabel setTitle:@"Default Name" forState:UIControlStateNormal];
 		[self.gameNameLabel sizeToFit];
 		[self.gameNameLabel setFrame:CGRectMake(kOffset, runningY, width, self.gameNameLabel.frame.size.height)];
@@ -247,6 +248,10 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	NSRange separator = [serverString rangeOfString:@":" options:NSBackwardsSearch];
 	NSInteger port;
 	NSString *hostname;
+	Boolean result;
+	CFHostRef hostRef;
+	CFArrayRef addresses;
+	
 	if (separator.location != NSNotFound) {
 		hostname = [serverString substringToIndex:separator.location];
 		port = [[serverString substringFromIndex:separator.location + separator.length] integerValue];
@@ -258,17 +263,20 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 		hostname = serverString;
 		port = kDefaultPort;
 	}
-	NSHost *host = [NSHost hostWithAddress:hostname];
-	if (host == nil) {
-		host = [NSHost hostWithName:hostname];
-		if (host == nil) {
-			[self setMessage:@"Invalid IP address or hostname:"];
-			return;
+	hostRef = CFHostCreateWithName(kCFAllocatorDefault, (CFStringRef)hostname);
+	if (hostRef) {
+		result = CFHostStartInfoResolution(hostRef, kCFHostAddresses, NULL);
+		if (result == TRUE) {
+			addresses = CFHostGetAddressing(hostRef, &result);
 		}
+	}
+	if (result == FALSE) {
+		[self setMessage:@"Invalid IP address or hostname:"];
+		return;
 	}
 	NSInputStream *inputStream;
 	NSOutputStream *outputStream;
-	[NSStream getStreamsToHost:host port:port inputStream:&inputStream outputStream:&outputStream];
+	[NSStream getStreamsToHostNamed:hostname port:port inputStream:&inputStream outputStream:&outputStream];
 	if (inputStream == nil || outputStream == nil) {
 		[self setMessage:@"Cannot connect:"];
 	} else {
