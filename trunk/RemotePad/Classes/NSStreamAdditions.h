@@ -3,7 +3,7 @@
 //  RemotePad
 //
 //  Created by Rui Paulo on 27/09/2010.
-//  Copyright 2010 __MyCompanyName__. All rights reserved.
+//  Copyright 2008, 2009, 2010 tenjin.org. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
