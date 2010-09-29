@@ -140,6 +140,7 @@ typedef struct {
 	BOOL doLabelsForMouseButtons;
 }
 
+- (BOOL)deviceIsAniPad;
 - (void)resetAllStates:(id)applicationControllerDelegate;
 - (void)toggleStatusbars;
 - (void)showToolbars:(BOOL)show temporal:(BOOL)temporally;

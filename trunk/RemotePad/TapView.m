@@ -91,6 +91,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (void)loadView {
 	CGRect rect;
+	CGFloat toolbarOffset;
 	rect = [[UIScreen mainScreen] bounds];
 	UIView *view = [[UIView alloc] initWithFrame:rect];
 	[view setMultipleTouchEnabled:YES];
@@ -137,8 +138,14 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	[bottombar sizeToFit];
 	
 	float bbHeight = rect.origin.y + rect.size.height;
-	if (!hiddenKeyboard) bbHeight -= ((tapViewOrientation == UIInterfaceOrientationLandscapeLeft) || (tapViewOrientation == UIInterfaceOrientationLandscapeRight)) ? kStatusKeyboardOffsetLand : kStatusKeyboardOffsetPort;
-
+	if (!hiddenKeyboard) {
+		if ([self deviceIsAniPad] == TRUE) {
+			toolbarOffset = kStatusKeyboardOffsetPortiPad;
+		} else {
+			toolbarOffset = kStatusKeyboardOffsetPort;
+		}
+		bbHeight -= ((tapViewOrientation == UIInterfaceOrientationLandscapeLeft) || (tapViewOrientation == UIInterfaceOrientationLandscapeRight)) ? kStatusKeyboardOffsetLand : toolbarOffset;
+	}
 	[bottombar setFrame:CGRectMake(rect.origin.x, bbHeight, rect.size.width, [bottombar frame].size.height)];
 	[view addSubview:bottombar];
 	
