@@ -179,6 +179,15 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	[self prepareToolbarsAndStatusbar];
 }
 
+- (void)viewDidLoad{
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
+}
+
+- (void)viewDidUnload{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+}
+
+
 - (void) registerDefaults {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults registerDefaults:[NSDictionary dictionaryWithObject:kDefaultVersion forKey:kDefaultKeyVersion]];
@@ -887,6 +896,11 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	return FALSE;
 }
 // END keyboardField delegate methods
+
+- (void)keyboardWillHide:(NSNotification *)notification {
+	hiddenKeyboard = TRUE;
+	[self prepareToolbarsAndStatusbar];
+}
 
 - (void)showInsecureKeyboardWarning {
 	[insecureKeyboardWarningDialog dismissWithClickedButtonIndex:0 animated:NO];
