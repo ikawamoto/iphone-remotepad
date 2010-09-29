@@ -335,7 +335,6 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (void) serverDidEnableBonjour:(TCPServer*)server withName:(NSString*)string
 {
-	NSLog(@"%s", _cmd);
 	[self presentPicker:string];
 }
 

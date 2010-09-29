@@ -324,8 +324,6 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 - (BOOL) deviceIsAniPad
 {
 #if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30200
-	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
-		NSLog(@"it's an ipad\n");
 	return ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
 #endif
 	return NO;
