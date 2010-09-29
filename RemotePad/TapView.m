@@ -56,6 +56,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 #import "TapView.h"
 #import "AppController.h"
 #import "Constants.h"
+#import <UIKit/UIDevice.h>
 
 //CLASS IMPLEMENTATIONS:
 
@@ -249,6 +250,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	CGRect rect = [self.view bounds];
 	CGRect tbRect = [topview frame];
 	CGRect bbRect = [bottombar frame];
+	CGFloat toolbarOffset;
 	if (showToolbars) {
 		[[[bottombar items] objectAtIndex:0] setTitle:@"Hide button"];
 	} else {
@@ -266,8 +268,14 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	[topview setHidden:NO];
 
 	float bbHeight = rect.origin.y + rect.size.height - bbRect.size.height;
-	if (!hiddenKeyboard) bbHeight -= ((tapViewOrientation == UIInterfaceOrientationLandscapeLeft) || (tapViewOrientation == UIInterfaceOrientationLandscapeRight)) ? kStatusKeyboardOffsetLand : kStatusKeyboardOffsetPort;
-
+	if (!hiddenKeyboard) {
+		if ([self deviceIsAniPad] == TRUE) {
+			toolbarOffset = kStatusKeyboardOffsetPortiPad;
+		} else {
+			toolbarOffset = kStatusKeyboardOffsetPort;
+		}
+		bbHeight -= ((tapViewOrientation == UIInterfaceOrientationLandscapeLeft) || (tapViewOrientation == UIInterfaceOrientationLandscapeRight)) ? kStatusKeyboardOffsetLand : toolbarOffset;
+	}
 	[bottombar setFrame:CGRectMake(rect.origin.x, bbHeight, rect.size.width, bbRect.size.height)];
 	[bottombar setHidden:NO];
 	[UIView beginAnimations:nil context:NULL];
@@ -293,10 +301,22 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	[UIView commitAnimations];
 }
 
+- (BOOL) deviceIsAniPad
+{
+#if __IPHONE_OS_VERSION_MIN_REQUIRED >= 30200
+	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPhone)
+		NSLog(@"it's an ipad\n");
+	return ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
+#endif
+	return NO;
+}
+
 - (void) showToolbarsFinished:(NSString *)animationID finished:(BOOL)finished context:(void *)context {
 	CGRect rect = [self.view frame];
 	CGRect tbRect = [topview frame];
 	CGRect bbRect = [bottombar frame];
+	CGFloat toolbarOffset;
+	
 	if (topview.alpha == 0.0) {
 		[topview setFrame:CGRectMake(rect.origin.x, rect.origin.y - tbRect.size.height, tbRect.size.width, tbRect.size.height)];
 		[topview setHidden:YES];
@@ -306,7 +326,14 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	if (bottombar.alpha == 0.0) {
 		
 		float bbHeight = rect.origin.y + rect.size.height;
-	if (!hiddenKeyboard) bbHeight -= ((tapViewOrientation == UIInterfaceOrientationLandscapeLeft) || (tapViewOrientation == UIInterfaceOrientationLandscapeRight)) ? kStatusKeyboardOffsetLand : kStatusKeyboardOffsetPort;
+		if (!hiddenKeyboard) {
+			if ([self deviceIsAniPad] == TRUE) {
+				toolbarOffset = kStatusKeyboardOffsetPortiPad;
+			} else {
+				toolbarOffset = kStatusKeyboardOffsetPort;
+			}
+			bbHeight -= ((tapViewOrientation == UIInterfaceOrientationLandscapeLeft) || (tapViewOrientation == UIInterfaceOrientationLandscapeRight)) ? kStatusKeyboardOffsetLand : toolbarOffset;
+		}
 		
 		[bottombar setFrame:CGRectMake(rect.origin.x, bbHeight, bbRect.size.width, bbRect.size.height)];
 		[bottombar setHidden:YES];
