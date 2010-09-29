@@ -146,6 +146,7 @@
 
 // keyboard constants
 #define kToggleKeyboardItemWidth		120.0
+#define	kStatusKeyboardOffsetLandiPad	355.0
 #define kStatusKeyboardOffsetLand		160.0
 #define kStatusKeyboardOffsetPortiPad	270.0
 #define kStatusKeyboardOffsetPort		215.0

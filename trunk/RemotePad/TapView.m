@@ -91,7 +91,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (void)loadView {
 	CGRect rect;
-	CGFloat toolbarOffset;
+	CGFloat toolbarOffsetPort, toolbarOffsetLand;
 	rect = [[UIScreen mainScreen] bounds];
 	UIView *view = [[UIView alloc] initWithFrame:rect];
 	[view setMultipleTouchEnabled:YES];
@@ -140,11 +140,13 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	float bbHeight = rect.origin.y + rect.size.height;
 	if (!hiddenKeyboard) {
 		if ([self deviceIsAniPad] == TRUE) {
-			toolbarOffset = kStatusKeyboardOffsetPortiPad;
+			toolbarOffsetPort = kStatusKeyboardOffsetPortiPad;
+			toolbarOffsetLand = kStatusKeyboardOffsetLandiPad;
 		} else {
-			toolbarOffset = kStatusKeyboardOffsetPort;
+			toolbarOffsetPort = kStatusKeyboardOffsetPort;
+			toolbarOffsetLand = kStatusKeyboardOffsetLand;
 		}
-		bbHeight -= ((tapViewOrientation == UIInterfaceOrientationLandscapeLeft) || (tapViewOrientation == UIInterfaceOrientationLandscapeRight)) ? kStatusKeyboardOffsetLand : toolbarOffset;
+		bbHeight -= ((tapViewOrientation == UIInterfaceOrientationLandscapeLeft) || (tapViewOrientation == UIInterfaceOrientationLandscapeRight)) ? toolbarOffsetLand : toolbarOffsetPort;
 	}
 	[bottombar setFrame:CGRectMake(rect.origin.x, bbHeight, rect.size.width, [bottombar frame].size.height)];
 	[view addSubview:bottombar];
@@ -266,7 +268,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	CGRect rect = [self.view bounds];
 	CGRect tbRect = [topview frame];
 	CGRect bbRect = [bottombar frame];
-	CGFloat toolbarOffset;
+	CGFloat toolbarOffsetPort, toolbarOffsetLand;
 	if (showToolbars) {
 		[[[bottombar items] objectAtIndex:0] setTitle:@"Hide button"];
 	} else {
@@ -286,11 +288,13 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	float bbHeight = rect.origin.y + rect.size.height - bbRect.size.height;
 	if (!hiddenKeyboard) {
 		if ([self deviceIsAniPad] == TRUE) {
-			toolbarOffset = kStatusKeyboardOffsetPortiPad;
+			toolbarOffsetPort = kStatusKeyboardOffsetPortiPad;
+			toolbarOffsetLand = kStatusKeyboardOffsetLandiPad;
 		} else {
-			toolbarOffset = kStatusKeyboardOffsetPort;
+			toolbarOffsetPort = kStatusKeyboardOffsetPort;
+			toolbarOffsetLand = kStatusKeyboardOffsetLand;
 		}
-		bbHeight -= ((tapViewOrientation == UIInterfaceOrientationLandscapeLeft) || (tapViewOrientation == UIInterfaceOrientationLandscapeRight)) ? kStatusKeyboardOffsetLand : toolbarOffset;
+		bbHeight -= ((tapViewOrientation == UIInterfaceOrientationLandscapeLeft) || (tapViewOrientation == UIInterfaceOrientationLandscapeRight)) ? toolbarOffsetLand : toolbarOffsetPort;
 	}
 	[bottombar setFrame:CGRectMake(rect.origin.x, bbHeight, rect.size.width, bbRect.size.height)];
 	[bottombar setHidden:NO];
@@ -331,7 +335,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	CGRect rect = [self.view frame];
 	CGRect tbRect = [topview frame];
 	CGRect bbRect = [bottombar frame];
-	CGFloat toolbarOffset;
+	CGFloat toolbarOffsetPort, toolbarOffsetLand;
 	
 	if (topview.alpha == 0.0) {
 		[topview setFrame:CGRectMake(rect.origin.x, rect.origin.y - tbRect.size.height, tbRect.size.width, tbRect.size.height)];
@@ -344,11 +348,13 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 		float bbHeight = rect.origin.y + rect.size.height;
 		if (!hiddenKeyboard) {
 			if ([self deviceIsAniPad] == TRUE) {
-				toolbarOffset = kStatusKeyboardOffsetPortiPad;
+				toolbarOffsetPort = kStatusKeyboardOffsetPortiPad;
+				toolbarOffsetLand = kStatusKeyboardOffsetLandiPad;
 			} else {
-				toolbarOffset = kStatusKeyboardOffsetPort;
+				toolbarOffsetPort = kStatusKeyboardOffsetPort;
+				toolbarOffsetLand = kStatusKeyboardOffsetLand;
 			}
-			bbHeight -= ((tapViewOrientation == UIInterfaceOrientationLandscapeLeft) || (tapViewOrientation == UIInterfaceOrientationLandscapeRight)) ? kStatusKeyboardOffsetLand : toolbarOffset;
+			bbHeight -= ((tapViewOrientation == UIInterfaceOrientationLandscapeLeft) || (tapViewOrientation == UIInterfaceOrientationLandscapeRight)) ? toolbarOffsetLand : toolbarOffsetPort;
 		}
 		
 		[bottombar setFrame:CGRectMake(rect.origin.x, bbHeight, bbRect.size.width, bbRect.size.height)];
