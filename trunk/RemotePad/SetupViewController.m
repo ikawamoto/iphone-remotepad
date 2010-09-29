@@ -103,7 +103,7 @@ enum TableSections
 
 - (void)loadView {
 	tapViewController = [(AppController *)([UIApplication sharedApplication].delegate) tapViewController];
-	CGRect rect = [[UIScreen mainScreen] applicationFrame];
+	CGRect rect = [[UIScreen mainScreen] bounds];
 	UIView *contentView = [[UIView alloc] initWithFrame:rect];
 	[contentView setBackgroundColor:[UIColor groupTableViewBackgroundColor]];
 	[contentView setAutoresizesSubviews:YES];
@@ -117,7 +117,7 @@ enum TableSections
 	CGFloat height = [toolbar frame].size.height;
 	[toolbar setFrame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, height)];
 	[contentView addSubview:toolbar];
-	setupTableView = [[UITableView alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y + height, rect.size.width, rect.size.height - height) style:UITableViewStyleGrouped];
+	setupTableView = [[UITableView alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y + height, rect.size.width, rect.size.height - height - kStatusBarHeight) style:UITableViewStyleGrouped];
 	[setupTableView setDelegate:self];
 	[setupTableView setDataSource:self];
 	[setupTableView setAutoresizesSubviews:YES];

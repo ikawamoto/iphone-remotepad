@@ -81,7 +81,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 		if ([defaults boolForKey:kDefaultKeyProhibitSleeping]) {
 			[[UIApplication sharedApplication] setIdleTimerDisabled:YES];
 		}
-		CGFloat runningY = kStatusBarHeight;
+		CGFloat runningY = 0;
 		self.bvc = [[BrowserViewController alloc] initWithTitle:nil showDisclosureIndicators:NO showCancelButton:NO];
 		[self.bvc searchForServicesOfType:type inDomain:@"local"];
 		
@@ -176,7 +176,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 		runningY += label.bounds.size.height + 2;
 		[label release];
 		
-		[img setFrame:CGRectMake(0, kStatusBarHeight, self.bounds.size.width, runningY)];
+		[img setFrame:CGRectMake(0, 0, self.bounds.size.width, runningY)];
 		[img release];
 		
 		[self.bvc.view setFrame:CGRectMake(0, runningY, self.bounds.size.width, self.bounds.size.height - runningY)];
