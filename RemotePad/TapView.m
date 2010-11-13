@@ -98,6 +98,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	[view setExclusiveTouch:YES];
 	[view setBackgroundColor:[UIColor blackColor]];
 	self.view = view;
+	[self setWantsFullScreenLayout:YES];
 	
 	int buttonHeight = rect.size.height / 5;
 	topview = [[UIView alloc] initWithFrame:CGRectMake(rect.origin.x, rect.origin.y, rect.size.width, buttonHeight)];
