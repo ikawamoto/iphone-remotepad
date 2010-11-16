@@ -273,10 +273,6 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 			
 			if (_inReady && _outReady) {
 				[self showTapView];
-				
-				alertView = [[UIAlertView alloc] initWithTitle:@"Connected!" message:nil delegate:nil cancelButtonTitle:nil otherButtonTitles:@"Continue", nil];
-				[alertView show];
-				[alertView release];
 			}
 			break;
 		}
