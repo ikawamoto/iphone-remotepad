@@ -234,7 +234,12 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	static NSString *tableCellIdentifier = @"UITableViewCell";
 	UITableViewCell *cell = (UITableViewCell *)[tableView dequeueReusableCellWithIdentifier:tableCellIdentifier];
 	if (cell == nil) {
-		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:tableCellIdentifier] autorelease];
+        cell = [UITableViewCell alloc];
+        if ([cell respondsToSelector:@selector(initWithStyle:reuseIdentifier:)]) {
+            cell = [[cell initWithStyle:UITableViewCellStyleDefault reuseIdentifier:tableCellIdentifier] autorelease];
+        } else {
+            cell = [[cell initWithFrame:CGRectZero reuseIdentifier:tableCellIdentifier] autorelease];
+        }
 	}
 	
 	cell.imageView.image = bonjourIcon;
