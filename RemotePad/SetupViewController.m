@@ -269,12 +269,13 @@ enum TableSections
 }
 
 - (void)changeScrollingSpeed:(id)sender {
-	int value = (int)([(UISlider *)sender value] + 0.5);
-	if (value < [sender minimumValue])
-		value = (int)[sender minimumValue];
-	else if ([sender maximumValue] < value)
-		value = (int)[sender maximumValue];
-	[sender setValue:(float)value];
+    UISlider *slider = (UISlider *)sender;
+	int value = (int)([slider value] + 0.5);
+	if (value < [slider minimumValue])
+		value = (int)[slider minimumValue];
+	else if ([slider maximumValue] < value)
+		value = (int)[slider maximumValue];
+	[slider setValue:(float)value];
 	if (tapViewController.scrollingSpeed != value) {
 		[[NSUserDefaults standardUserDefaults] setInteger:value forKey:kDefaultKeyScrollingSpeed];
 		[tapViewController setScrollingSpeed:value];
@@ -282,12 +283,13 @@ enum TableSections
 }
 
 - (void)changeTrackingSpeed:(id)sender {
-	int value = (int)([(UISlider *)sender value] + 0.5);
-	if (value < [sender minimumValue])
-		value = (int)[sender minimumValue];
-	else if ([sender maximumValue] < value)
-		value = (int)[sender maximumValue];
-	[sender setValue:(float)value];
+    UISlider *slider = (UISlider *)sender;
+	int value = (int)([slider value] + 0.5);
+	if (value < [slider minimumValue])
+		value = (int)[slider minimumValue];
+	else if ([slider maximumValue] < value)
+		value = (int)[slider maximumValue];
+	[slider setValue:(float)value];
 	if (tapViewController.trackingSpeed != value) {
 		[[NSUserDefaults standardUserDefaults] setInteger:value forKey:kDefaultKeyTrackingSpeed];
 		[tapViewController setTrackingSpeed:value];
@@ -546,8 +548,14 @@ enum TableSections
 	UITableViewCell *cell = nil;
 	
 	cell = [setupTableView dequeueReusableCellWithIdentifier:nil];
-	if (cell == nil)
-		cell = [[[UITableViewCell alloc] initWithFrame:CGRectZero reuseIdentifier:nil] autorelease];
+	if (cell == nil) {
+        cell = [UITableViewCell alloc];
+        if ([cell respondsToSelector:@selector(initWithStyle:reuseIdentifier:)]) {
+            cell = [[cell initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil] autorelease];
+        } else {
+            cell = [[cell initWithFrame:CGRectZero reuseIdentifier:nil] autorelease];
+        }
+    }
 	[cell setSelectionStyle:UITableViewCellSelectionStyleNone];
 	cell.textLabel.font = [UIFont systemFontOfSize:16.0];
 	

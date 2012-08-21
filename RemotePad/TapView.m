@@ -312,10 +312,18 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 		hiddenToolbars = !showToolbars;
 	if (showStatusbar) {
 		[bottombar setAlpha:1.0];
-		[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+        if ([[UIApplication sharedApplication] respondsToSelector:@selector(setStatusBarHidden:withAnimation:)]) {
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+        } else {
+            [[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+        }
 	} else {
 		[bottombar setAlpha:0.0];
-		[[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:YES];
+        if ([[UIApplication sharedApplication] respondsToSelector:@selector(setStatusBarHidden:withAnimation:)]) {
+            [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:YES];
+        } else {
+            [[UIApplication sharedApplication] setStatusBarHidden:YES animated:YES];
+        }
 	}
 	if (!temporally)
 		hiddenStatusbar = !showStatusbar;
@@ -779,7 +787,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 				continue;
 			}
 			multiFingersTap.phase = UITouchPhaseMoved;
-			if (twoFingersScroll && numTouches == 2 || scrollWithMouse3 && mouse3Tap.dragMode && numTouches == 1) {
+			if ((twoFingersScroll && numTouches == 2) || (scrollWithMouse3 && mouse3Tap.dragMode && numTouches == 1)) {
 				float accel = 1;
 				int deltaRange = scrollingDelta[scrollingSpeed];
 				CGRect accelRect = CGRectMake(-deltaRange, -deltaRange, deltaRange*2, deltaRange*2);

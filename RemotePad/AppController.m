@@ -103,7 +103,11 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	[_window addSubview:navigationController.view];
 	
 	//Show the window
-	[application setStatusBarHidden:NO withAnimation:YES];
+    if ([application respondsToSelector:@selector(setStatusBarHidden:withAnimation:)]) {
+        [application setStatusBarHidden:NO withAnimation:YES];
+    } else {
+        [application setStatusBarHidden:NO animated:YES];
+    }
 	[_window makeKeyAndVisible];
 	
 	[[UIAccelerometer sharedAccelerometer] setUpdateInterval:(1.0 / kAccelerometerFrequency)];
@@ -111,9 +115,26 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	//Create and advertise a new game and discover other availble games
 	[self setup];
 }
+
 - (void)applicationWillTerminate:(UIApplication *)application {
+	NSLog(@"WillTerminate: inStream:%d, inReady:%@, outStream:%d, outReady:%@", [_inStream streamStatus], _inReady ? @"YES" : @"NO", [_outStream streamStatus], _outReady ? @"YES" : @"NO");
 	[[NSUserDefaults standardUserDefaults] synchronize];
 }
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+	NSLog(@"DidEnterBackground: inStream:%d, inReady:%@, outStream:%d, outReady:%@", [_inStream streamStatus], _inReady ? @"YES" : @"NO", [_outStream streamStatus], _outReady ? @"YES" : @"NO");
+	[self applicationWillTerminate:application];
+}
+
+- (void)applicationDidBecomeActive:(UIApplication *)application {
+	NSLog(_server == nil ? @"server == nil" : @"server != nil");
+	[_server stop];
+	NSError* error;
+	[_server start:&error];
+	[self presentPicker:nil];
+	NSLog(@"DidBecomeActive: inStream:%d, inReady:%@, outStream:%d, outReady:%@", [_inStream streamStatus], _inReady ? @"YES" : @"NO", [_outStream streamStatus], _outReady ? @"YES" : @"NO");
+}
+
 
 - (void) dealloc
 {
@@ -133,6 +154,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 }
 
 - (void) setup {
+	NSLog(@"setup");
 	[self closeStreams];
 	[_server release];
 	
@@ -159,7 +181,11 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 	if (tapViewController.tapViewOrientation != UIInterfaceOrientationPortrait) {
 		[tapViewController showToolbars:NO showStatusbar:NO temporal:YES];
 		[[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
-		[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+		if ([[UIApplication sharedApplication] respondsToSelector:@selector(setStatusBarHidden:withAnimation:)]) {
+            [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+        } else {
+            [[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+        }
 	}
 	[setupViewController adjustCellValues];
 	[navigationController pushViewController:setupViewController animated:YES];
@@ -185,7 +211,11 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 - (void) presentPicker:(NSString*)name {
 	[(Picker *)[pickerViewController view] setGameName:name];
 	[[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
-	[[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(setStatusBarHidden:withAnimation:)]) {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:YES];
+    } else {
+        [[UIApplication sharedApplication] setStatusBarHidden:NO animated:YES];
+    }
 	[[UIAccelerometer sharedAccelerometer] setDelegate:nil];
 	[navigationController popToRootViewControllerAnimated:YES];
 }
@@ -216,6 +246,7 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 }
 
 - (void) closeStreams {
+	NSLog(@"closeStreams");
 	[_inStream removeFromRunLoop:[NSRunLoop currentRunLoop] forMode:NSDefaultRunLoopMode];
 	[_inStream close];
 	[_inStream release];
@@ -259,7 +290,6 @@ Copyright (C) 2008 Apple Inc. All Rights Reserved.
 
 - (void) stream:(NSStream*)stream handleEvent:(NSStreamEvent)eventCode
 {
-	UIAlertView* alertView;
 	switch(eventCode) {
 		case NSStreamEventOpenCompleted:
 		{
